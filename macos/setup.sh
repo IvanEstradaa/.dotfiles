@@ -65,7 +65,7 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
 # For some reason, you need the literal path to the wallpaper img
 # We save the path
-PATH_TO_WALLPAPER="$(pwd)/wallpaper/Wallpaper.jpg"
+PATH_TO_WALLPAPER="$(pwd)/wallpaper/Wallpaper1.jpg"
 # Set the wallpaper using the literal path of the img
 osascript -e 'tell application "Finder" to set desktop picture to POSIX file "'"$PATH_TO_WALLPAPER"'"'
 

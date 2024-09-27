@@ -7,7 +7,7 @@ git clone https://github.com/IvanEstradaa/dotfiles.git
 
 Then execute the initialization script, to start downloading packages and seting up apps.
 ```
-./bootsrap.sh
+./bootstrap.sh
 ```
 
 Once the previous script is done, execute MacOS setup script to change looks and behaviors of the MacOS.

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Crear archivo logs para los cronjobs
+# Crear archivo log para los cronjobs
 touch ~/crontab_log.txt
 
 # Añadir un nuevo cron job si no existe ya
