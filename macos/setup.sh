@@ -305,8 +305,8 @@ chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library
 # Dock, Dashboard, and hot corners                                            #
 ###############################################################################
 
-# Enable highlight hover effect for the grid view of a stack (Dock)
-#defaults write com.apple.dock mouse-over-hilite-stack -bool true
+# Disable highlight hover effect for the grid view of a stack (Dock)
+defaults write com.apple.dock mouse-over-hilite-stack -bool false
 
 # Set the icon size of Dock items to 1 pixel
 defaults write com.apple.dock tilesize -int 1
@@ -336,6 +336,9 @@ defaults write com.apple.dock persistent-apps -array
 
 # Don’t animate opening applications from the Dock
 defaults write com.apple.dock launchanim -bool false
+
+# Change dock position to left
+defaults write com.apple.dock orientation left
 
 # Speed up Mission Control animations
 #defaults write com.apple.dock expose-animation-duration -float 0.1
