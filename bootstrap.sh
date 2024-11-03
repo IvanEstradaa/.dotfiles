@@ -2,7 +2,8 @@
 source brew/install.sh
 
 # Install diferrent Formulaes and Casks using xargs with Homebrew's install command
-xargs brew install < installs.txt
+# (using grep to ignore commented lines with #)
+grep -v '^\s*#' packages.txt | xargs brew install
 
 # Download FCPX
 open "https://www.apple.com/final-cut-pro/trial/download"

@@ -8,3 +8,6 @@
 ._*
 .Spotlight-V100
 .Trashes
+
+#Node Modules
+node_modules
