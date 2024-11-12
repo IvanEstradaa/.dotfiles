@@ -265,7 +265,7 @@ const rules: KarabinerRules[] = [
     ],
   },
   */
-  
+
   ...createHyperSubLayers({
     // b = "B"rowse
     b: {
@@ -280,14 +280,15 @@ const rules: KarabinerRules[] = [
       t: app("Warp"),
       b: app("Arc"),
       c: app("Visual Studio Code"),
+      e: app("FindMy"),
     },
     // a = "A"erospace
     a: {
-      h: shell`osascript -e 'tell application "Terminal" to do script "aerospace join-with left && aerospace layout v_accordion"'`,
-      t: shell`osascript -e 'tell application "Terminal" to do script "aerospace resize width 415"'`,
+      h: shell`osascript -e 'tell application "Terminal" to do script "aerospace join-with left && aerospace layout v_accordion && exit"'`,
+      t: shell`osascript -e 'tell application "Terminal" to do script "aerospace resize width 415 && exit"'`,
     },
 
-    // c = "Configuracion"
+    // c = "C"onfiguracion
     c: {
       u: {
         to: [
@@ -319,6 +320,7 @@ const rules: KarabinerRules[] = [
       },
       b: shell`open "x-apple.systempreferences:com.apple.preference.battery"`,
       l: shell`open "x-apple.systempreferences:com.apple.Lock-Screen-Settings.extension"`,
+      a: shell`open "x-apple.systempreferences:com.apple.settings.Storage"`,
       /*
       l: {
         to: [
@@ -364,43 +366,7 @@ const rules: KarabinerRules[] = [
       */
     },
 
-    // v = "moVe" which isn't "m" because we want it to be on the left hand
-    // so that hjkl work like they do in vim
-    v: {
-      h: {
-        to: [{ key_code: "left_arrow" }],
-      },
-      j: {
-        to: [{ key_code: "down_arrow" }],
-      },
-      k: {
-        to: [{ key_code: "up_arrow" }],
-      },
-      l: {
-        to: [{ key_code: "right_arrow" }],
-      },
-      // Magicmove via homerow.app
-      /*
-      m: {
-        to: [{ key_code: "f", modifiers: ["right_control"] }],
-        // TODO: Trigger Vim Easymotion when VSCode is focused
-      },
-      // Scroll mode via homerow.app
-      s: {
-        to: [{ key_code: "j", modifiers: ["right_control"] }],
-      },
-      d: {
-        to: [{ key_code: "d", modifiers: ["right_shift", "right_command"] }],
-      },
-      u: {
-        to: [{ key_code: "page_down" }],
-      },
-      i: {
-        to: [{ key_code: "page_up" }],
-      },
-      */
-    },
-
+    
     s:{
       h: open("raycast://extensions/mattisssa/spotify-player/previous"),
       j: open("raycast://extensions/mattisssa/spotify-player/volumeDown"),
@@ -416,11 +382,12 @@ const rules: KarabinerRules[] = [
       p: open("raycast://extensions/mattisssa/spotify-player/togglePlayPause"),
       n: open("raycast://extensions/mattisssa/spotify-player/nowPlaying"),
     },
-
+    
     // r = "Raycast"
     r: {
       c: open("raycast://extensions/thomas/color-picker/pick-color"),
       e: open("raycast://extensions/raycast/emoji-symbols/search-emoji-symbols"),
+      h: open("raycast://extensions/ivanestradaa/mitec/horario"),
       /*
       n: open("raycast://script-commands/dismiss-notifications"),
       l: open(
@@ -440,7 +407,43 @@ const rules: KarabinerRules[] = [
       ),
       */
     },
-
+    /*
+    // v = "moVe" which isn't "m" because we want it to be on the left hand
+    // so that hjkl work like they do in vim
+    v: {
+      h: {
+        to: [{ key_code: "left_arrow" }],
+      },
+      j: {
+        to: [{ key_code: "down_arrow" }],
+      },
+      k: {
+        to: [{ key_code: "up_arrow" }],
+      },
+      l: {
+        to: [{ key_code: "right_arrow" }],
+      },
+      // Magicmove via homerow.app
+      m: {
+        to: [{ key_code: "f", modifiers: ["right_control"] }],
+        // TODO: Trigger Vim Easymotion when VSCode is focused
+      },
+      // Scroll mode via homerow.app
+      s: {
+        to: [{ key_code: "j", modifiers: ["right_control"] }],
+      },
+      d: {
+        to: [{ key_code: "d", modifiers: ["right_shift", "right_command"] }],
+      },
+      u: {
+        to: [{ key_code: "page_down" }],
+      },
+      i: {
+        to: [{ key_code: "page_up" }],
+      },
+    },
+    */
+    
     /*
     spacebar: open(
       "raycast://extensions/stellate/mxstbr-commands/create-notion-todo"
@@ -545,6 +548,116 @@ const rules: KarabinerRules[] = [
     },
     */
   }),
+
+  {
+    description: "Vim movement H",
+    manipulators: [
+      {
+        conditions: [
+          {
+            name: "hyper",
+            type: "variable_if",
+            value: 1,
+          },
+        ],
+        description: "H -> ←",
+        from: {
+          key_code: "h",
+          modifiers: {
+            optional: ["any"],
+          },
+        },
+        to: [
+          {
+            key_code: "left_arrow",
+          },
+        ],
+        type: "basic",
+      },
+    ],
+  },
+  {
+    description: "Vim movement J",
+    manipulators: [
+      {
+        conditions: [
+          {
+            name: "hyper",
+            type: "variable_if",
+            value: 1,
+          },
+        ],
+        description: "J -> ↓",
+        from: {
+          key_code: "j",
+          modifiers: {
+            optional: ["any"],
+          },
+        },
+        to: [
+          {
+            key_code: "down_arrow",
+          },
+        ],
+        type: "basic",
+      },
+    ],
+  },
+  {
+    description: "Vim movement K",
+    manipulators: [
+      {
+        conditions: [
+          {
+            name: "hyper",
+            type: "variable_if",
+            value: 1,
+          },
+        ],
+        description: "K -> ↑",
+        from: {
+          key_code: "k",
+          modifiers: {
+            optional: ["any"],
+          },
+        },
+        to: [
+          {
+            key_code: "up_arrow",
+          },
+        ],
+        type: "basic",
+      },
+    ],
+  },
+  {
+    description: "Vim movement L",
+    manipulators: [
+      {
+        conditions: [
+          {
+            name: "hyper",
+            type: "variable_if",
+            value: 1,
+          },
+        ],
+        description: "L -> →",
+        from: {
+          key_code: "l",
+          modifiers: {
+            optional: ["any"],
+          },
+        },
+        to: [
+          {
+            key_code: "right_arrow",
+          },
+        ],
+        type: "basic",
+      },
+    ],
+  },
+  
 ];
 
 fs.writeFileSync(
@@ -553,14 +666,19 @@ fs.writeFileSync(
     {
       global: {
         show_in_menu_bar: false,
+        show_profile_name_in_menu_bar: true,
       },
       profiles: [
         {
-          name: "Default",
+          name: "π",
+          selected: true,
           complex_modifications: {
             rules,
           },
         },
+        {
+          name: "Default",
+        }
       ],
     },
     null,

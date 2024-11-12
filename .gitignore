@@ -9,5 +9,6 @@
 .Spotlight-V100
 .Trashes
 
-#Node Modules
+#Karabiner's automatic backups and node_modules
+automatic_backups
 node_modules

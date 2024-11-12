@@ -1,5 +1,8 @@
 {
-    "global": { "show_in_menu_bar": false },
+    "global": {
+        "show_in_menu_bar": false,
+        "show_profile_name_in_menu_bar": true
+    },
     "profiles": [
         {
             "complex_modifications": {
@@ -55,11 +58,6 @@
                                         "value": 0
                                     },
                                     {
-                                        "name": "hyper_sublayer_v",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    },
-                                    {
                                         "name": "hyper_sublayer_s",
                                         "type": "variable_if",
                                         "value": 0
@@ -78,7 +76,7 @@
                                 "description": "Toggle Hyper sublayer b",
                                 "from": {
                                     "key_code": "b",
-                                    "modifiers": { "optional": ["any"] }
+                                    "modifiers": { "oƒptional": ["any"] }
                                 },
                                 "to": [
                                     {
@@ -201,11 +199,6 @@
                                         "value": 0
                                     },
                                     {
-                                        "name": "hyper_sublayer_v",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    },
-                                    {
                                         "name": "hyper_sublayer_s",
                                         "type": "variable_if",
                                         "value": 0
@@ -291,6 +284,22 @@
                                 },
                                 "to": [{ "shell_command": "open -a 'Visual Studio Code.app'" }],
                                 "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper_sublayer_o",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Open -a 'FindMy.app'",
+                                "from": {
+                                    "key_code": "e",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "shell_command": "open -a 'FindMy.app'" }],
+                                "type": "basic"
                             }
                         ]
                     },
@@ -311,11 +320,6 @@
                                     },
                                     {
                                         "name": "hyper_sublayer_c",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    },
-                                    {
-                                        "name": "hyper_sublayer_v",
                                         "type": "variable_if",
                                         "value": 0
                                     },
@@ -366,12 +370,12 @@
                                         "value": 1
                                     }
                                 ],
-                                "description": "osascript -e 'tell application \"Terminal\" to do script \"aerospace join-with left && aerospace layout v_accordion\"'",
+                                "description": "osascript -e 'tell application \"Terminal\" to do script \"aerospace join-with left && aerospace layout v_accordion && exit\"'",
                                 "from": {
                                     "key_code": "h",
                                     "modifiers": { "optional": ["any"] }
                                 },
-                                "to": [{ "shell_command": "osascript -e 'tell application \"Terminal\" to do script \"aerospace join-with left && aerospace layout v_accordion\"'" }],
+                                "to": [{ "shell_command": "osascript -e 'tell application \"Terminal\" to do script \"aerospace join-with left && aerospace layout v_accordion && exit\"'" }],
                                 "type": "basic"
                             },
                             {
@@ -382,12 +386,12 @@
                                         "value": 1
                                     }
                                 ],
-                                "description": "osascript -e 'tell application \"Terminal\" to do script \"aerospace resize width 415\"'",
+                                "description": "osascript -e 'tell application \"Terminal\" to do script \"aerospace resize width 415 && exit\"'",
                                 "from": {
                                     "key_code": "t",
                                     "modifiers": { "optional": ["any"] }
                                 },
-                                "to": [{ "shell_command": "osascript -e 'tell application \"Terminal\" to do script \"aerospace resize width 415\"'" }],
+                                "to": [{ "shell_command": "osascript -e 'tell application \"Terminal\" to do script \"aerospace resize width 415 && exit\"'" }],
                                 "type": "basic"
                             }
                         ]
@@ -409,11 +413,6 @@
                                     },
                                     {
                                         "name": "hyper_sublayer_a",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    },
-                                    {
-                                        "name": "hyper_sublayer_v",
                                         "type": "variable_if",
                                         "value": 0
                                     },
@@ -547,131 +546,21 @@
                                 },
                                 "to": [{ "shell_command": "open \"x-apple.systempreferences:com.apple.Lock-Screen-Settings.extension\"" }],
                                 "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Hyper Key sublayer \"v\"",
-                        "manipulators": [
+                            },
                             {
                                 "conditions": [
-                                    {
-                                        "name": "hyper_sublayer_b",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    },
-                                    {
-                                        "name": "hyper_sublayer_o",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    },
-                                    {
-                                        "name": "hyper_sublayer_a",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    },
                                     {
                                         "name": "hyper_sublayer_c",
                                         "type": "variable_if",
-                                        "value": 0
-                                    },
-                                    {
-                                        "name": "hyper_sublayer_s",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    },
-                                    {
-                                        "name": "hyper_sublayer_r",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    },
-                                    {
-                                        "name": "hyper",
-                                        "type": "variable_if",
                                         "value": 1
                                     }
                                 ],
-                                "description": "Toggle Hyper sublayer v",
+                                "description": "open \"x-apple.systempreferences:com.apple.settings.Storage\"",
                                 "from": {
-                                    "key_code": "v",
+                                    "key_code": "a",
                                     "modifiers": { "optional": ["any"] }
                                 },
-                                "to": [
-                                    {
-                                        "set_variable": {
-                                            "name": "hyper_sublayer_v",
-                                            "value": 1
-                                        }
-                                    }
-                                ],
-                                "to_after_key_up": [
-                                    {
-                                        "set_variable": {
-                                            "name": "hyper_sublayer_v",
-                                            "value": 0
-                                        }
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "name": "hyper_sublayer_v",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "h",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "left_arrow" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "name": "hyper_sublayer_v",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "j",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "down_arrow" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "name": "hyper_sublayer_v",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "k",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "up_arrow" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "name": "hyper_sublayer_v",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "l",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "right_arrow" }],
+                                "to": [{ "shell_command": "open \"x-apple.systempreferences:com.apple.settings.Storage\"" }],
                                 "type": "basic"
                             }
                         ]
@@ -698,11 +587,6 @@
                                     },
                                     {
                                         "name": "hyper_sublayer_c",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    },
-                                    {
-                                        "name": "hyper_sublayer_v",
                                         "type": "variable_if",
                                         "value": 0
                                     },
@@ -976,11 +860,6 @@
                                         "value": 0
                                     },
                                     {
-                                        "name": "hyper_sublayer_v",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    },
-                                    {
                                         "name": "hyper_sublayer_s",
                                         "type": "variable_if",
                                         "value": 0
@@ -1045,13 +924,115 @@
                                 },
                                 "to": [{ "shell_command": "open raycast://extensions/raycast/emoji-symbols/search-emoji-symbols" }],
                                 "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper_sublayer_r",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Open raycast://extensions/ivanestradaa/mitec/horario",
+                                "from": {
+                                    "key_code": "h",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "shell_command": "open raycast://extensions/ivanestradaa/mitec/horario" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Vim movement H",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "H -> ←",
+                                "from": {
+                                    "key_code": "h",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "left_arrow" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Vim movement J",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "J -> ↓",
+                                "from": {
+                                    "key_code": "j",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "down_arrow" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Vim movement K",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "K -> ↑",
+                                "from": {
+                                    "key_code": "k",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "up_arrow" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Vim movement L",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "L -> →",
+                                "from": {
+                                    "key_code": "l",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "right_arrow" }],
+                                "type": "basic"
                             }
                         ]
                     }
                 ]
             },
-            "name": "Default",
+            "name": "π",
+            "selected": true,
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
-        }
+        },
+        { "name": "Default" }
     ]
 }

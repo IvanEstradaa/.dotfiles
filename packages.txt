@@ -1,5 +1,6 @@
 #Formulaes
 gh
+yarn
 
 #Casks
 --cask app-cleaner
@@ -7,6 +8,7 @@ gh
 --cask bitwarden
 --cask docker
 --cask handbrake
+--cask karabiner-elements
 --cask nextcloud
 --cask nikitabobko/tap/aerospace
 --cask obs
@@ -15,3 +17,4 @@ gh
 --cask visual-studio-code
 --cask warp
 --cask wine-stable
+# --cask zen-browser

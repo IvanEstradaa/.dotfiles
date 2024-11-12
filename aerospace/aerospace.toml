@@ -14,7 +14,15 @@ after-login-command = []
 # You can use it to add commands that run after AeroSpace startup.
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
-after-startup-command = []
+# Added
+# Borders docs: https://github.com/FelixKratz/JankyBorders/wiki/Man-Page
+# Color format: https://www.myfixguide.com/color-converter/ 
+after-startup-command = [ 
+    # 'exec-and-forget borders active_color="gradient(top_left=0xff536b93,bottom_right=0xffff7e1e) gradient(top_right=0xffff9b0a,bottom_left=0xff91d2ff)" inactive_color=0xff494d64 width=5.0'
+    # 'exec-and-forget borders active_color="glow(0xffff374a)" inactive_color=0xff494d64 width=3.0' # Light Red Glow for car wallpaper 
+    # 'exec-and-forget borders active_color="glow(0xffc31222)" inactive_color=0xff494d64 width=3.0' # Red Glow for car wallpaper
+    # 'exec-and-forget borders active_color="glow(0xfffe3762)" inactive_color=0xff494d64 width=3.0' #Pink-Red Glow for raycast wallpaper (red loop)
+]
 
 # Start AeroSpace at login
 start-at-login = true
@@ -60,12 +68,12 @@ C = '^built-in retina display$'
 #                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
 #                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-inner.horizontal = 7
-inner.vertical =   7
-outer.left =       7
-outer.bottom =     7
-outer.top =        7
-outer.right =      7
+inner.horizontal = 5
+inner.vertical =   5
+outer.left =       5
+outer.bottom =     5
+outer.top =        5
+outer.right =      5
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes

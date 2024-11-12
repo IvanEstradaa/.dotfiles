@@ -8,8 +8,14 @@ grep -v '^\s*#' packages.txt | xargs brew install
 # Download FCPX
 open "https://www.apple.com/final-cut-pro/trial/download"
 
-# Setup my configuration for aerospace tiling window manager
+# Setup Nextcloud's VFS configuration
+source nextcloud/setup.sh 
+
+# Setup my configuration for Aerospace tiling window manager
 source aerospace/setup.sh
+
+# Setup my configuration for Karabiner-Elements
+source karabiner/setup.sh
 
 # Setup my crontabs and my crontab_log
 source crontab/setup.sh
