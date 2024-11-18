@@ -11,6 +11,63 @@
                         "description": "Hyper Key (⌃⌥⇧⌘)",
                         "manipulators": [
                             {
+                                "conditions": [
+                                    {
+                                        "name": "vim_mode",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    }
+                                ],
+                                "description": "Caps Lockc -> Hyper Key",
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "hyper",
+                                            "value": 1
+                                        }
+                                    }
+                                ],
+                                "to_after_key_up": [
+                                    {
+                                        "set_variable": {
+                                            "name": "hyper",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "set_variable": {
+                                            "name": "vim_mode",
+                                            "value": 1
+                                        }
+                                    },
+                                    {
+                                        "set_notification_message": {
+                                            "id": "vim_mode.notification_status",
+                                            "text": "Active"
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Hyper Key (⌃⌥⇧⌘)",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "vim_mode",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
                                 "description": "Caps Lock -> Hyper Key",
                                 "from": {
                                     "key_code": "caps_lock",
@@ -32,7 +89,20 @@
                                         }
                                     }
                                 ],
-                                "to_if_alone": [{ "key_code": "escape" }],
+                                "to_if_alone": [
+                                    {
+                                        "set_variable": {
+                                            "name": "vim_mode",
+                                            "value": 0
+                                        }
+                                    },
+                                    {
+                                        "set_notification_message": {
+                                            "id": "vim_mode.notification_status",
+                                            "text": ""
+                                        }
+                                    }
+                                ],
                                 "type": "basic"
                             }
                         ]
@@ -44,11 +114,6 @@
                                 "conditions": [
                                     {
                                         "name": "hyper_sublayer_o",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    },
-                                    {
-                                        "name": "hyper_sublayer_a",
                                         "type": "variable_if",
                                         "value": 0
                                     },
@@ -76,7 +141,7 @@
                                 "description": "Toggle Hyper sublayer b",
                                 "from": {
                                     "key_code": "b",
-                                    "modifiers": { "oƒptional": ["any"] }
+                                    "modifiers": { "optional": ["any"] }
                                 },
                                 "to": [
                                     {
@@ -189,11 +254,6 @@
                                         "value": 0
                                     },
                                     {
-                                        "name": "hyper_sublayer_a",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    },
-                                    {
                                         "name": "hyper_sublayer_c",
                                         "type": "variable_if",
                                         "value": 0
@@ -245,22 +305,6 @@
                                         "value": 1
                                     }
                                 ],
-                                "description": "Open -a 'Warp.app'",
-                                "from": {
-                                    "key_code": "t",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "shell_command": "open -a 'Warp.app'" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "name": "hyper_sublayer_o",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
                                 "description": "Open -a 'Arc.app'",
                                 "from": {
                                     "key_code": "b",
@@ -277,12 +321,12 @@
                                         "value": 1
                                     }
                                 ],
-                                "description": "Open -a 'Visual Studio Code.app'",
+                                "description": "Open -a 'Messages.app'",
                                 "from": {
                                     "key_code": "c",
                                     "modifiers": { "optional": ["any"] }
                                 },
-                                "to": [{ "shell_command": "open -a 'Visual Studio Code.app'" }],
+                                "to": [{ "shell_command": "open -a 'Messages.app'" }],
                                 "type": "basic"
                             },
                             {
@@ -300,98 +344,53 @@
                                 },
                                 "to": [{ "shell_command": "open -a 'FindMy.app'" }],
                                 "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Hyper Key sublayer \"a\"",
-                        "manipulators": [
+                            },
                             {
                                 "conditions": [
-                                    {
-                                        "name": "hyper_sublayer_b",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    },
                                     {
                                         "name": "hyper_sublayer_o",
                                         "type": "variable_if",
-                                        "value": 0
-                                    },
-                                    {
-                                        "name": "hyper_sublayer_c",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    },
-                                    {
-                                        "name": "hyper_sublayer_s",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    },
-                                    {
-                                        "name": "hyper_sublayer_r",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    },
-                                    {
-                                        "name": "hyper",
-                                        "type": "variable_if",
                                         "value": 1
                                     }
                                 ],
-                                "description": "Toggle Hyper sublayer a",
+                                "description": "Open -a 'Karabiner-Elements.app'",
                                 "from": {
-                                    "key_code": "a",
+                                    "key_code": "k",
                                     "modifiers": { "optional": ["any"] }
                                 },
-                                "to": [
-                                    {
-                                        "set_variable": {
-                                            "name": "hyper_sublayer_a",
-                                            "value": 1
-                                        }
-                                    }
-                                ],
-                                "to_after_key_up": [
-                                    {
-                                        "set_variable": {
-                                            "name": "hyper_sublayer_a",
-                                            "value": 0
-                                        }
-                                    }
-                                ],
+                                "to": [{ "shell_command": "open -a 'Karabiner-Elements.app'" }],
                                 "type": "basic"
                             },
                             {
                                 "conditions": [
                                     {
-                                        "name": "hyper_sublayer_a",
+                                        "name": "hyper_sublayer_o",
                                         "type": "variable_if",
                                         "value": 1
                                     }
                                 ],
-                                "description": "osascript -e 'tell application \"Terminal\" to do script \"aerospace join-with left && aerospace layout v_accordion && exit\"'",
+                                "description": "Open -a 'Maps.app'",
                                 "from": {
-                                    "key_code": "h",
+                                    "key_code": "m",
                                     "modifiers": { "optional": ["any"] }
                                 },
-                                "to": [{ "shell_command": "osascript -e 'tell application \"Terminal\" to do script \"aerospace join-with left && aerospace layout v_accordion && exit\"'" }],
+                                "to": [{ "shell_command": "open -a 'Maps.app'" }],
                                 "type": "basic"
                             },
                             {
                                 "conditions": [
                                     {
-                                        "name": "hyper_sublayer_a",
+                                        "name": "hyper_sublayer_o",
                                         "type": "variable_if",
                                         "value": 1
                                     }
                                 ],
-                                "description": "osascript -e 'tell application \"Terminal\" to do script \"aerospace resize width 415 && exit\"'",
+                                "description": "Open -a 'Warp.app'",
                                 "from": {
                                     "key_code": "t",
                                     "modifiers": { "optional": ["any"] }
                                 },
-                                "to": [{ "shell_command": "osascript -e 'tell application \"Terminal\" to do script \"aerospace resize width 415 && exit\"'" }],
+                                "to": [{ "shell_command": "open -a 'Warp.app'" }],
                                 "type": "basic"
                             }
                         ]
@@ -408,11 +407,6 @@
                                     },
                                     {
                                         "name": "hyper_sublayer_o",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    },
-                                    {
-                                        "name": "hyper_sublayer_a",
                                         "type": "variable_if",
                                         "value": 0
                                     },
@@ -577,11 +571,6 @@
                                     },
                                     {
                                         "name": "hyper_sublayer_o",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    },
-                                    {
-                                        "name": "hyper_sublayer_a",
                                         "type": "variable_if",
                                         "value": 0
                                     },
@@ -850,11 +839,6 @@
                                         "value": 0
                                     },
                                     {
-                                        "name": "hyper_sublayer_a",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    },
-                                    {
                                         "name": "hyper_sublayer_c",
                                         "type": "variable_if",
                                         "value": 0
@@ -949,7 +933,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "hyper",
+                                        "name": "vim_mode",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -970,7 +954,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "hyper",
+                                        "name": "vim_mode",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -991,7 +975,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "hyper",
+                                        "name": "vim_mode",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -1012,7 +996,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "hyper",
+                                        "name": "vim_mode",
                                         "type": "variable_if",
                                         "value": 1
                                     }
