@@ -54,12 +54,6 @@ const rules: KarabinerRules[] = [
         ],
         type: "basic",
       },
-    ],
-  },
-
-  {
-    description: "Hyper Key (⌃⌥⇧⌘)",
-    manipulators: [
       {
         conditions: [
           {
@@ -190,7 +184,7 @@ const rules: KarabinerRules[] = [
   }),
 
   {
-    description: "Vim Movement H",
+    description: "Vim Movement (HJKL)",
     manipulators: [
       {
         conditions: [
@@ -214,11 +208,6 @@ const rules: KarabinerRules[] = [
         ],
         type: "basic",
       },
-    ],
-  },
-  {
-    description: "Vim Movement J",
-    manipulators: [
       {
         conditions: [
           {
@@ -241,11 +230,6 @@ const rules: KarabinerRules[] = [
         ],
         type: "basic",
       },
-    ],
-  },
-  {
-    description: "Vim Movement K",
-    manipulators: [
       {
         conditions: [
           {
@@ -268,11 +252,6 @@ const rules: KarabinerRules[] = [
         ],
         type: "basic",
       },
-    ],
-  },
-  {
-    description: "Vim Movement L",
-    manipulators: [
       {
         conditions: [
           {
@@ -312,12 +291,15 @@ fs.writeFileSync(
         {
           name: "π",
           selected: true,
+          virtual_hid_keyboard: { keyboard_type_v2: "ansi" },
           complex_modifications: {
+            parameters: { "basic.to_if_held_down_threshold_milliseconds": 100 },
             rules,
           },
         },
         {
           name: "Default",
+          virtual_hid_keyboard: { keyboard_type_v2: "ansi" },
         }
       ],
     },

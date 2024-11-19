@@ -10,6 +10,8 @@ export interface Manipulator {
   to?: To[];
   to_after_key_up?: To[];
   to_if_alone?: To[];
+  to_if_held_down?: To[];
+  to_delayed_action?: To[];
   parameters?: Parameters;
   conditions?: Conditions[];
 }
@@ -130,9 +132,14 @@ export interface To {
   key_code?: KeyCode;
   modifiers?: ModifiersKeys[];
   shell_command?: string;
+  halt?: boolean;
   set_variable?: {
     name: string;
     value: boolean | number | string;
+  };
+  set_notification_message?: {
+    id: string;
+    text: string;
   };
   mouse_key?: MouseKey;
   pointing_button?: string;
