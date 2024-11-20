@@ -158,7 +158,6 @@ const rules: KarabinerRules[] = [
       a: shell`open "x-apple.systempreferences:com.apple.settings.Storage"`,
     },
 
-    
     s:{
       h: open("raycast://extensions/mattisssa/spotify-player/previous"),
       j: open("raycast://extensions/mattisssa/spotify-player/volumeDown"),
@@ -181,6 +180,34 @@ const rules: KarabinerRules[] = [
       e: open("raycast://extensions/raycast/emoji-symbols/search-emoji-symbols"),
       h: open("raycast://extensions/ivanestradaa/mitec/horario"),
     },
+
+    spacebar: {
+      a: {
+        to: [
+          {
+            key_code: "a",
+            modifiers: ["left_shift", "left_control", "left_option", "left_command"],
+          },
+        ],
+      },
+      s: {
+        to: [
+          {
+            key_code: "s",
+            modifiers: ["left_shift", "left_control", "left_option", "left_command"],
+          },
+        ],
+      },
+      d: {
+        to: [
+          {
+            key_code: "d",
+            modifiers: ["left_shift", "left_control", "left_option", "left_command"],
+          },
+        ],
+      },
+    },
+
   }),
 
   {
