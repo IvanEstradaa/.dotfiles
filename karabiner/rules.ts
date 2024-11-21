@@ -46,9 +46,9 @@ const rules: KarabinerRules[] = [
             },
           },
           {
-            "set_notification_message": {
-                "id": "vim_mode.notification_status",
-                "text": "Active"
+            set_notification_message: {
+                id: "vim_mode.notification_status",
+                text: "Active"
             }
           },
         ],
@@ -93,10 +93,9 @@ const rules: KarabinerRules[] = [
             },
           },
           {
-            // Hide the notification message
-            "set_notification_message": {
-                "id": "vim_mode.notification_status",
-                "text": ""
+            set_notification_message: {
+                id: "vim_mode.notification_status",
+                text: ""
             }
           },
         ],
@@ -195,6 +194,18 @@ const rules: KarabinerRules[] = [
           {
             key_code: "s",
             modifiers: ["left_shift", "left_control", "left_option", "left_command"],
+          },
+          {
+            set_variable: {
+              name: "vim_mode",
+              value: 1,
+            },
+          },
+          {
+            set_notification_message: {
+                id: "vim_mode.notification_status",
+                text: "Active"
+            }
           },
         ],
       },
@@ -320,7 +331,7 @@ fs.writeFileSync(
           selected: true,
           virtual_hid_keyboard: { keyboard_type_v2: "ansi" },
           complex_modifications: {
-            parameters: { "basic.to_if_held_down_threshold_milliseconds": 100 },
+            parameters: { "basic.to_if_held_down_threshold_milliseconds": 110 },
             rules,
           },
         },
