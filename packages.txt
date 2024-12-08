@@ -1,8 +1,8 @@
 #Formulaes
 node@20
 gh
-bitwarden-cli
 yarn
+bitwarden-cli
 
 #Casks
 # --cask app-cleaner
@@ -19,5 +19,5 @@ yarn
 --cask raycast
 --cask visual-studio-code
 --cask warp
---cask wine-stable
+# --cask wine-stable
 # --cask zen-browser
