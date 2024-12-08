@@ -12,3 +12,4 @@
 #Karabiner's automatic backups and node_modules
 automatic_backups
 node_modules
+karabiner.json

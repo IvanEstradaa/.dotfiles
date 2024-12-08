@@ -26,7 +26,6 @@
                     "value": 0
                   }
                 ],
-                "description": "Caps Lock -> Hyper Key",
                 "from": {
                   "key_code": "caps_lock",
                   "modifiers": {
@@ -75,7 +74,6 @@
                     "value": 1
                   }
                 ],
-                "description": "Caps Lock -> Hyper Key",
                 "from": {
                   "key_code": "caps_lock",
                   "modifiers": {
@@ -399,7 +397,7 @@
                 "description": "Open -a 'Messages.app'",
                 "type": "basic",
                 "from": {
-                  "key_code": "c",
+                  "key_code": "m",
                   "modifiers": {
                     "optional": [
                       "any"
@@ -465,13 +463,13 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Maps.app'"
+                    "shell_command": "open -a 'Warp.app'"
                   }
                 ],
-                "description": "Open -a 'Maps.app'",
+                "description": "Open -a 'Warp.app'",
                 "type": "basic",
                 "from": {
-                  "key_code": "m",
+                  "key_code": "t",
                   "modifiers": {
                     "optional": [
                       "any"
@@ -489,13 +487,13 @@
               {
                 "to": [
                   {
-                    "shell_command": "open -a 'Warp.app'"
+                    "shell_command": "open -a 'Visual Studio Code.app'"
                   }
                 ],
-                "description": "Open -a 'Warp.app'",
+                "description": "Open -a 'Visual Studio Code.app'",
                 "type": "basic",
                 "from": {
-                  "key_code": "t",
+                  "key_code": "c",
                   "modifiers": {
                     "optional": [
                       "any"
@@ -1357,18 +1355,6 @@
                       "left_option",
                       "left_command"
                     ]
-                  },
-                  {
-                    "set_variable": {
-                      "name": "vim_mode",
-                      "value": 1
-                    }
-                  },
-                  {
-                    "set_notification_message": {
-                      "id": "vim_mode.notification_status",
-                      "text": "Active"
-                    }
                   }
                 ],
                 "type": "basic",
@@ -1516,6 +1502,95 @@
                     "key_code": "right_arrow"
                   }
                 ],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "Disable Cmd+M",
+            "manipulators": [
+              {
+                "from": {
+                  "key_code": "m",
+                  "modifiers": {
+                    "mandatory": [
+                      "left_command"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "vk_none"
+                  }
+                ],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "Double press Cmd+Q to quit",
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "name": "command_q",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "from": {
+                  "key_code": "q",
+                  "modifiers": {
+                    "mandatory": [
+                      "left_command"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "q",
+                    "modifiers": [
+                      "left_command"
+                    ]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "key_code": "q",
+                  "modifiers": {
+                    "mandatory": [
+                      "left_command"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "command_q",
+                      "value": 1
+                    }
+                  }
+                ],
+                "to_delayed_action": {
+                  "to_if_invoked": [
+                    {
+                      "set_variable": {
+                        "name": "command_q",
+                        "value": 0
+                      }
+                    }
+                  ],
+                  "to_if_canceled": [
+                    {
+                      "set_variable": {
+                        "name": "command_q",
+                        "value": 0
+                      }
+                    }
+                  ]
+                },
                 "type": "basic"
               }
             ]

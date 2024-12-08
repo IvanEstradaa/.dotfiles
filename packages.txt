@@ -1,18 +1,21 @@
 #Formulaes
+node@20
 gh
+bitwarden-cli
 yarn
 
 #Casks
---cask app-cleaner
+# --cask app-cleaner
 --cask arc
---cask bitwarden
---cask docker
+# --cask docker
 --cask handbrake
+--cask homerow
 --cask karabiner-elements
 --cask nextcloud
 --cask nikitabobko/tap/aerospace
---cask obs
---cask pgadmin4
+# --cask obs
+--cask openvpn-connect
+# --cask pgadmin4
 --cask raycast
 --cask visual-studio-code
 --cask warp

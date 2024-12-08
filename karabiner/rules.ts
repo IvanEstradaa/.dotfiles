@@ -15,7 +15,6 @@ const rules: KarabinerRules[] = [
             value: 0,
           },
         ],
-        description: "Caps Lock -> Hyper Key",
         from: {
           key_code: "caps_lock",
           modifiers: {
@@ -62,7 +61,6 @@ const rules: KarabinerRules[] = [
             value: 1,
           },
         ],
-        description: "Caps Lock -> Hyper Key",
         from: {
           key_code: "caps_lock",
           modifiers: {
@@ -116,12 +114,12 @@ const rules: KarabinerRules[] = [
     // o = "Open" applications
     o: {
       b: app("Arc"),
-      c: app("Messages"),
+      m: app("Messages"),
       e: app("FindMy"),
       k: app("Karabiner-Elements"),
-      m: app("Maps"),
       t: app("Warp"),
-    },
+      c: app("Visual Studio Code"),
+    },  
     // c = "C"onfiguracion
     c: {
       u: {
@@ -194,18 +192,6 @@ const rules: KarabinerRules[] = [
           {
             key_code: "s",
             modifiers: ["left_shift", "left_control", "left_option", "left_command"],
-          },
-          {
-            set_variable: {
-              name: "vim_mode",
-              value: 1,
-            },
-          },
-          {
-            set_notification_message: {
-                id: "vim_mode.notification_status",
-                text: "Active"
-            }
           },
         ],
       },
@@ -310,6 +296,89 @@ const rules: KarabinerRules[] = [
             key_code: "right_arrow",
           },
         ],
+        type: "basic",
+      },
+    ],
+  },
+
+  {
+    description: "Disable Cmd+M",
+    manipulators: [
+      {
+        from: {
+          key_code: "m",
+          modifiers: {
+            mandatory: ["left_command"],
+          },
+        },
+        to: [
+          {
+            key_code: "vk_none",
+          },
+        ],
+        type: "basic",
+      },
+    ],
+  },
+
+  {
+    description: "Double press Cmd+Q to quit",
+    manipulators: [
+      {
+        conditions:[
+          {
+            name: "command_q",
+            type: "variable_if",
+            value: 1,
+          },
+        ],
+        from: {
+          key_code: "q",
+          modifiers: {
+            mandatory: ["left_command"],
+          },
+        },
+        to: [
+          {
+            key_code: "q",
+            modifiers: ["left_command"],
+          },
+        ],
+        type: "basic",
+      },
+      {
+        from: {
+          key_code: "q",
+          modifiers: {
+            mandatory: ["left_command"],
+          },
+        },
+        to: [
+          {
+            set_variable: {
+              name: "command_q",
+              value: 1,
+            },
+          },
+        ],
+        to_delayed_action: {
+          "to_if_invoked": [
+            {
+              set_variable: {
+                name: "command_q",
+                value: 0,
+              },
+            },
+          ],
+          "to_if_canceled": [
+            {
+              set_variable: {
+                name: "command_q",
+                value: 0,
+              },
+            },
+          ],
+        },
         type: "basic",
       },
     ],

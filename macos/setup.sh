@@ -171,8 +171,8 @@ defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 
 # Save screenshots to dedicated folder
-mkdir -p "$HOME/Capturas"
-defaults write com.apple.screencapture location -string "${HOME}/Capturas"
+mkdir -p "$HOME/Screenshots"
+defaults write com.apple.screencapture location -string "${HOME}/Screenshots"
 
 # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
 defaults write com.apple.screencapture type -string "png"
@@ -209,7 +209,7 @@ defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
 # Finder: show hidden files by default
-defaults write com.apple.finder AppleShowAllFiles -bool true
+# defaults write com.apple.finder AppleShowAllFiles -bool true
 
 # Finder: show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
@@ -337,8 +337,8 @@ defaults write com.apple.dock persistent-apps -array
 # Don’t animate opening applications from the Dock
 defaults write com.apple.dock launchanim -bool false
 
-# Change dock position to left
-defaults write com.apple.dock orientation left
+# Change dock orientation to left
+defaults write com.apple.dock orientation right
 
 # Speed up Mission Control animations
 #defaults write com.apple.dock expose-animation-duration -float 0.1
@@ -404,11 +404,11 @@ defaults write com.apple.dock wvous-tl-modifier -int 0
 # Top right screen corner
 #defaults write com.apple.dock wvous-tr-corner -int 2
 defaults write com.apple.dock wvous-tr-modifier -int 0
-# Bottom left screen corner → Start screen saver
+# Bottom left screen corner 
 #defaults write com.apple.dock wvous-bl-corner -int 5
-defaults write com.apple.dock wvous-bl-modifier -int 0
+defaults write com.apple.dock wvous-bl-modifier -int 10
 # Bottom right screen corner
-defaults write com.apple.dock wvous-br-corner -int 10
+defaults write com.apple.dock wvous-br-corner -int 0
 
 ###############################################################################
 # Safari & WebKit                                                             #
