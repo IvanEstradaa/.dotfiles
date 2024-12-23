@@ -302,6 +302,26 @@ const rules: KarabinerRules[] = [
   },
 
   {
+    description: "Disable Cmd+H",
+    manipulators: [
+      {
+        from: {
+          key_code: "h",
+          modifiers: {
+            mandatory: ["left_command"],
+          },
+        },
+        to: [
+          {
+            key_code: "vk_none",
+          },
+        ],
+        type: "basic",
+      },
+    ],
+  },
+
+  {
     description: "Disable Cmd+M",
     manipulators: [
       {

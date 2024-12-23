@@ -7,6 +7,8 @@ grep -v '^\s*#' packages.txt | xargs brew install
 
 # Download FCPX
 open "https://www.apple.com/final-cut-pro/trial/download"
+# echo "Downloading FCPX..."
+# curl -L# -o ~/Downloads/FCPX.dmg "https://www.apple.com/final-cut-pro/trial/download"
 
 # Setup Nextcloud's VFS configuration
 source nextcloud/setup.sh 
