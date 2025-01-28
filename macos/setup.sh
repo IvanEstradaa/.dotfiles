@@ -65,7 +65,7 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
 # For some reason, you need the literal path to the wallpaper img
 # We save the path
-PATH_TO_WALLPAPER="$(pwd)/wallpaper/Wallpaper1.jpg"
+PATH_TO_WALLPAPER="$(pwd)/wallpaper/Wallpaper6.jpg"
 # Set the wallpaper using the literal path of the img
 osascript -e 'tell application "Finder" to set desktop picture to POSIX file "'"$PATH_TO_WALLPAPER"'"'
 
@@ -756,7 +756,7 @@ defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 # defaults write com.apple.finder CreateDesktop false
 
 # Code directory
-mkdir -p $HOME/Projects.nosync
+mkdir -p $HOME/projects.nosync
 
 ###############################################################################
 # Kill affected applications                                                  #
@@ -778,4 +778,12 @@ for app in "Activity Monitor" \
 	"iCal"; do
 	killall "${app}" &> /dev/null
 done
-echo "Done. Note that some of these changes require a logout/restart to take effect."
+
+# echo "Done. Note that some of these changes require a logout/restart to take effect."
+
+response=$(osascript -e "tell app \"System Events\" to display dialog \"A system reboot is required to make changes take effect in your machine.\\n \\n Do you want to Reboot?\" buttons {\"Not Now\", \"Reboot\"} default button \"Reboot\" with title \"IvanEstradaa .dotfiles\" with icon POSIX file \"$(pwd)/macos/icon.png\"")
+
+# Check the user's response
+if [[ "$response" == *"button returned:Reboot"* ]]; then
+osascript -e 'tell app "System Events" to restart'
+fi
