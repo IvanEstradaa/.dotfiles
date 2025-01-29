@@ -1,16 +1,18 @@
 #Formulaes
 node@20
+java
 gh
-yarn
+# yarn
 bitwarden-cli
 
 #Casks
 # --cask app-cleaner
---cask arc
+# --cask arc
 # --cask docker
---cask handbrake
---cask homerow
---cask karabiner-elements
+--cask hammerspoon
+# --cask handbrake
+# --cask homerow
+# --cask karabiner-elements
 --cask nextcloud
 --cask nikitabobko/tap/aerospace
 # --cask obs
@@ -20,4 +22,4 @@ bitwarden-cli
 --cask visual-studio-code
 --cask warp
 # --cask wine-stable
-# --cask zen-browser
+--cask zen-browser

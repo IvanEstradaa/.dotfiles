@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Set WallPaper
+
+NUMBER=$1
+osascript -e "tell application \"Finder\" to set desktop picture to POSIX file \"$HOME/.dotfiles/wallpaper/Wallpaper${NUMBER}.jpg\""

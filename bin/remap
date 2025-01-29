@@ -1,0 +1,84 @@
+#!/bin/bash
+
+# For remaping keys, see: https://hidutil-generator.netlify.app/
+
+# Function to set original key mappings
+set_original_mapping() {
+  hidutil property --set '{
+    "UserKeyMapping": [
+      {
+        "HIDKeyboardModifierMappingSrc": 0x700000039,
+        "HIDKeyboardModifierMappingDst": 0x70000006F
+      },
+      {
+        "HIDKeyboardModifierMappingSrc": 0x7000000E7,
+        "HIDKeyboardModifierMappingDst": 0x70000006E
+      }
+    ]
+  }'
+}
+
+# Function to set new key mappings
+set_new_mapping() {
+  hidutil property --set '{
+    "UserKeyMapping": [
+      {
+        "HIDKeyboardModifierMappingSrc": 0x700000039,
+        "HIDKeyboardModifierMappingDst": 0x70000006F
+      },
+      {
+        "HIDKeyboardModifierMappingSrc": 0x7000000E7,
+        "HIDKeyboardModifierMappingDst": 0x70000006E
+      },
+      {
+        "HIDKeyboardModifierMappingSrc": 0x70000000B,
+        "HIDKeyboardModifierMappingDst": 0x700000050
+      },
+      {
+        "HIDKeyboardModifierMappingSrc": 0x70000000D,
+        "HIDKeyboardModifierMappingDst": 0x700000051
+      },
+      {
+        "HIDKeyboardModifierMappingSrc": 0x70000000E,
+        "HIDKeyboardModifierMappingDst": 0x700000052
+      },
+      {
+        "HIDKeyboardModifierMappingSrc": 0x70000000F,
+        "HIDKeyboardModifierMappingDst": 0x70000004F
+      }
+    ]
+  }'
+}
+
+# Function to check the current mapping and switch accordingly
+toggle_mapping() {
+  currentMapping=$(hidutil property --get "UserKeyMapping" | grep "30064771083")  # 0x70000000B is the key code for 'h'
+
+  if [ -n "$currentMapping" ]; then
+    # If the pattern exists, switch to the original mapping
+    echo "Switching to original mapping..."
+    set_original_mapping
+  else
+    # If the pattern doesn't exist, switch to the new mapping
+    echo "Switching to new mapping..."
+    set_new_mapping
+  fi
+}
+
+# Main logic based on the argument provided
+if [ -z "$1" ]; then
+  # No parameter provided, toggle based on current mapping
+  toggle_mapping
+elif [ "$1" == "original" ]; then
+  # Parameter is 'original', set to original mapping
+  echo "Setting original mapping..."
+  set_original_mapping
+elif [ "$1" == "new" ]; then
+  # Parameter is 'new', set to new mapping
+  echo "Setting new mapping..."
+  set_new_mapping
+else
+  # Invalid parameter
+  echo "Invalid parameter. Usage: remap [original|new]"
+  exit 1
+fi

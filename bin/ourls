@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Open URLS from file in default browser and remove file after opening
+
+FILE_NAME="$1"
+sed 's/^/"/; s/$/"/' "$FILE_NAME" | xargs -n 1 open && rm -rfi "$FILE_NAME"

@@ -9,4 +9,4 @@ alias gcB='git checkout -B'
 alias gc='git checkout'
 alias gb='git branch'
 
-alias swp='~/.dotfiles/wallpaper/setWallpaper.sh'
+alias updatebin='~/.dotfiles/bin/setup.sh'
