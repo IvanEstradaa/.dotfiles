@@ -1,18 +1,18 @@
 # My dotfiles
 
-In your Home Directory, clone GitHub repository running the following command in your terminal.
+Clone GitHub repository running the following command in your terminal.
 ```
-git clone https://github.com/IvanEstradaa/.dotfiles.git && cd .dotfiles
+git clone https://github.com/IvanEstradaa/.dotfiles.git ~/.dotfiles && cd ~/.dotfiles
 ```
 
 Then execute the initialization script, to start downloading packages and seting up apps.
 ```
-./bootstrap.sh
+source bootstrap.sh
 ```
 
 Once the previous script is done, execute MacOS setup script to change looks and behaviors of the MacOS.
 ```
-./macos/setup.sh
+source macos/setup.sh
 ``` 
 
-When Mac OS setup is finished, restart your machine, to make some of the changes take effect
+When MacOS setup is finished, a pop-up will appear asking you to reboot your machine, to make some of the changes take effect
