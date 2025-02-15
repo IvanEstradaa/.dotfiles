@@ -3,26 +3,31 @@ require("hyperkey")
 require("scroll")
 require("border")
 require("directories")
+require("bar")
 
 hs.execute("remap original")
 
-hs.hotkey.bind({}, "F19", toggleGrid, nil, startScroll)
+hs.hotkey.bind({}, "F19", toggleGrid, n il, startScroll)
 
 hs.hotkey.bind({"cmd", "alt"}, "V", function()
   hs.application.launchOrFocus("Preview")
   -- local app = hs.appfinder.appFromName("Preview")
   -- app:selectMenuItem({"Archivo", "Nuevo a partir del Portapapeles"})
-  hs.eventtap.keyStroke({"cmd"}, "N")
+  hs.timer.doAfter(0.01, function()
+    hs.eventtap.keyStroke({"cmd"}, "N")
+  end)
 end)
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "SPACE", function()
-  hs.execute("swp 8")
+  -- kill textedit app
+  hs.execute("killall TextEdit")
+  hs.execute("ourls -y $(ls -t ~/Downloads | head -n 1 | xargs -I {} echo ~/Downloads/{})")
 end)
 
 -- Disable Cmd + H
-hs.hotkey.bind({"cmd"}, "H", function()
-  -- Do nothing instead of hiding the app
-end)
+-- hs.hotkey.bind({"cmd"}, "H", function()
+--   -- Do nothing instead of hiding the app
+-- end)
 
 -- Disable Cmd + M
 hs.hotkey.bind({"cmd"}, "M", function()

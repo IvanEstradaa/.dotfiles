@@ -47,59 +47,53 @@ border[1] = {
 }
 
 -- Function to listen for key presses
-local function listenForKeys()
-
-    keyListenerScroll = hs.eventtap.new({hs.eventtap.event.types.keyDown}, function(event)
-        local keyCode = event:getKeyCode()  -- Get the key code of the key pressed
-        local key = string.upper(hs.keycodes.map[keyCode])  -- Get the key from the key code and convert to uppercase
-        local arrowKeys = {}
-        arrowKeys["H"] = { a = {3, 0}, b = {}, c = "line", d = {1000, 0}, e = "left"}
-        arrowKeys["J"] = { a = {0, -3}, b = {}, c = "line", d = {0, -1000}, e = "down"}
-        arrowKeys["K"] = { a = {0, 3}, b = {}, c = "line", d = {0, 1000}, e = "up"}
-        arrowKeys["L"] = { a = {-3, 0}, b = {}, c = "line", d = {-1000, 0}, e = "right"}
-        
-        if arrowKeys[key] then
-            local modifiers = hs.eventtap.checkKeyboardModifiers()
-            canvas:hide()
-            if modifiers.cmd then
-                hs.eventtap.scrollWheel(arrowKeys[key].d, arrowKeys[key].b, arrowKeys[key].c)
-                -- hs.eventtap.keyStroke({"cmd"}, arrowKeys[key].e)
-            else
-               hs.eventtap.scrollWheel(arrowKeys[key].a, arrowKeys[key].b, arrowKeys[key].c)
-            end
-        end
-
-        if coords[key] then
-            local mousePos = { x = coords[key].x + 5, y = coords[key].y - 90 }
-            hs.mouse.setAbsolutePosition(mousePos)
-            canvas:hide()
-        end
-
-        if key == "ESCAPE" or key == "F19" then
-            canvas:hide()
-            border:hide()
-            keyListenerScroll:stop()
-            lock = false
-        end
-
-        -- Only stop propagation for non-command key events (so cmd + arrow keys still work)
-        -- if not (key == "DOWN" or key == "UP" or key == "LEFT" or key == "RIGHT") then
-        --     event:stopPropagation()  -- Stop propagation for non-command key presses
-        -- end
-
-        event:stopPropagation()
-        
-    end):start()
+keyListenerScroll = hs.eventtap.new({hs.eventtap.event.types.keyDown}, function(event)
+    local keyCode = event:getKeyCode()  -- Get the key code of the key pressed
+    local key = string.upper(hs.keycodes.map[keyCode])  -- Get the key from the key code and convert to uppercase
+    local arrowKeys = {}
+    arrowKeys["H"] = { a = {3, 0}, b = {}, c = "line", d = {1000, 0}, e = "left"}
+    arrowKeys["J"] = { a = {0, -3}, b = {}, c = "line", d = {0, -1000}, e = "down"}
+    arrowKeys["K"] = { a = {0, 3}, b = {}, c = "line", d = {0, 1000}, e = "up"}
+    arrowKeys["L"] = { a = {-3, 0}, b = {}, c = "line", d = {-1000, 0}, e = "right"}
     
-end
+    if arrowKeys[key] then
+        lock = false
+        local modifiers = hs.eventtap.checkKeyboardModifiers()
+        canvas:hide()
+        if modifiers.cmd then
+            hs.eventtap.scrollWheel(arrowKeys[key].d, arrowKeys[key].b, arrowKeys[key].c)
+            -- hs.eventtap.keyStroke({"cmd"}, arrowKeys[key].e)
+        else
+            hs.eventtap.scrollWheel(arrowKeys[key].a, arrowKeys[key].b, arrowKeys[key].c)
+        end
+    end
+
+    if coords[key] then
+        local mousePos = { x = coords[key].x + 5, y = coords[key].y - 90 }
+        hs.mouse.setAbsolutePosition(mousePos)
+        canvas:hide()
+    end
+
+    if key == "ESCAPE" or (key == "F19" and lock == false) then
+        canvas:hide()
+        border:hide()
+        keyListenerScroll:stop()
+        lock = false
+    end
+
+    -- Only stop propagation for non-command key events (so cmd + arrow keys still work)
+    -- if not (key == "DOWN" or key == "UP" or key == "LEFT" or key == "RIGHT") then
+    --     event:stopPropagation()  -- Stop propagation for non-command key presses
+    -- end
+
+    event:stopPropagation()
+end)
 
 -- Toggle the grid visibility
 function startScroll()
-    if not lock then
-      lock = true
-      stopGrid()
-      canvas:show()
-      border:show()
-      listenForKeys()
-    end
+    lock = true
+    stopGrid()
+    canvas:show()
+    border:show()
+    keyListenerScroll:start()
 end

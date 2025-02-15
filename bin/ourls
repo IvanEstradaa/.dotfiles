@@ -1,6 +1,25 @@
 #!/bin/bash
 
 # Open URLS from file in default browser and remove file after opening
+# If -y flag is provided, remove the file automatically without asking
 
 FILE_NAME="$1"
-sed 's/^/"/; s/$/"/' "$FILE_NAME" | xargs -n 1 open && rm -rfi "$FILE_NAME"
+AUTO_REMOVE=false
+
+# Check for the -y flag, and get the filename
+if [[ "$1" == "-y" ]]; then
+    AUTO_REMOVE=true
+    shift  # Move the argument position to get the filename
+fi
+
+FILE_NAME="$1"
+
+# Add quotes around each URL
+sed 's/^/"/; s/$/"/' "$FILE_NAME" | xargs -n 1 open
+
+# Remove the file if -y flag is set or ask for confirmation
+if $AUTO_REMOVE; then
+  rm -f "$FILE_NAME"
+else
+  rm -rfi "$FILE_NAME"
+fi

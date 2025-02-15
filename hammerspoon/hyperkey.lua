@@ -20,7 +20,7 @@ subLayer["B"] = {
 }
 
 subLayer["O"] = {
-    ["B"] = {app = "Arc"},
+    ["B"] = {app = "Safari"},
     ["M"] = {app = "Messages"},
     ["E"] = {app = "FindMy"},
     ["T"] = {app = "Warp"},
@@ -62,7 +62,7 @@ subLayer["C"] = {
     ["A"] = {url = "x-apple.systempreferences:com.apple.settings.Storage"},
 }
 
-subLayer["H"] = {
+subLayer["M"] = {
     ["R"] = {reload = "Reload hammerspoon config"}, 
     ["C"] = {code = "~/.config/hammerspoon"}, 
 }
@@ -71,23 +71,47 @@ subLayer["H"] = {
 --     ["Z"] = {mods = {"cmd", "alt"}, key = "V", type = types.keyStroke},
 -- }
 
+local function mouseLazyCenter()
+    local frame = hs.window.focusedWindow():frame()
+    -- Calculate the center of the window
+    local centerX = frame.x + frame.w / 2
+    local centerY = frame.y + frame.h / 2
+    -- Move the mouse to the center of the window
+    hs.mouse.setRelativePosition({x = centerX, y = centerY})
+end
+
 
 listenForSubLayers = hs.eventtap.new({hs.eventtap.event.types.keyDown, hs.eventtap.event.types.keyUp}, function(event)
     local key = string.upper(hs.keycodes.map[event:getKeyCode()])  -- Get the key from the key code event and convert to uppercase
     local keyUp = event:getType() == hs.eventtap.event.types.keyUp
 
-    if keyUp and key == hyperKey then
-        listenForActions:stop()
-        activeSubLayer = ""
-        return false
+    if keyUp then
+        if key == hyperKey then
+            activeSubLayer = ""
+            listenForActions:stop()
+            return false
+        else return true end
     end
 
     if subLayer[key] and activeSubLayer == "" then
-        listenForActions:start()
         activeSubLayer = key
+        listenForActions:start()
         hyperTriggered = true
     end
 
+    if activeSubLayer == "" then 
+        if key == "H" then
+            hs.window.focusedWindow():focusWindowWest()
+        elseif key == "J" then
+            hs.window.focusedWindow():focusWindowSouth()
+        elseif key == "K" then
+            hs.window.focusedWindow():focusWindowNorth()
+        elseif key == "L" then
+            hs.window.focusedWindow():focusWindowEast()
+        end
+        mouseLazyCenter()
+        hyperTriggered = true
+    end
     event:stopPropagation()
 end)
 
@@ -97,12 +121,10 @@ listenForActions = hs.eventtap.new({hs.eventtap.event.types.keyDown, hs.eventtap
     local keyUps = event:getType() == hs.eventtap.event.types.keyUp
 
     if keyUps then
-        if key == hyperKey then
-            listenForActions:stop()
-            listenForSubLayers:stop()
+        if key == hyperKey or key == activeSubLayer then 
             activeSubLayer = ""
+            listenForActions:stop()
             return false
-        elseif key == activeSubLayer then listenForActions:stop() activeSubLayer = "" 
         else return true end
     end
 
@@ -115,23 +137,21 @@ listenForActions = hs.eventtap.new({hs.eventtap.event.types.keyDown, hs.eventtap
             hs.brightness.set(hs.brightness.get() + action.brightness)
         elseif action.volume then
             local new = hs.audiodevice.defaultOutputDevice():volume() + action.volume
-            if new > 0 then 
-                hs.audiodevice.defaultOutputDevice():setMuted(false)
-            else
+            if new < 0 then 
                 hs.audiodevice.defaultOutputDevice():setMuted(true)
+            else
+                hs.audiodevice.defaultOutputDevice():setMuted(false)
             end
             hs.audiodevice.defaultOutputDevice():setVolume(new)
+            createBar(new / 100)
+            hs.timer.doAfter(1.2, deleteBar)
         elseif action.keys then
             hs.execute("" .. " " .. action.keys)
         elseif action.code then
             hs.execute("code " .. action.code)
-            listenForActions:stop()
-            listenForSubLayers:stop()
-            activeSubLayer = ""
         elseif action.reload then
             hs.reload()
         end
-        return
     end
 
     event:stopPropagation()

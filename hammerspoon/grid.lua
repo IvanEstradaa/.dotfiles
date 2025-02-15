@@ -182,7 +182,7 @@ function startListeningForKeys()
       end
 
       -- wait until the click is done before resetting the keys
-      hs.timer.doAfter(0.01, function()
+      hs.timer.doAfter(0.015, function()
         keys = {}  -- Reset after clicking
         toggleGrid()  -- Hide the grid after clicking
       end)
