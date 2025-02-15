@@ -3,23 +3,28 @@ node@20
 java
 gh
 # yarn
-bitwarden-cli
+# bitwarden-cli
 
 #Casks
 # --cask app-cleaner
 # --cask arc
+--cask cloudflare-warp
 # --cask docker
 --cask hammerspoon
 # --cask handbrake
 # --cask homerow
 # --cask karabiner-elements
+# --cask makemkv
 --cask nextcloud
 --cask nikitabobko/tap/aerospace
 # --cask obs
 --cask openvpn-connect
 # --cask pgadmin4
+--cask prismlauncher
 --cask raycast
 --cask visual-studio-code
+# --cask vlc
 --cask warp
+--cask whisky
 # --cask wine-stable
 --cask zen-browser
