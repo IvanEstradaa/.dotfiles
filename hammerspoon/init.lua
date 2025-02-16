@@ -5,9 +5,9 @@ require("border")
 require("directories")
 require("bar")
 
-hs.execute("remap original")
+hs.execute("/usr/local/bin/remap original")
 
-hs.hotkey.bind({}, "F19", toggleGrid, n il, startScroll)
+hs.hotkey.bind({}, "F19", toggleGrid, nil, startScroll)
 
 hs.hotkey.bind({"cmd", "alt"}, "V", function()
   hs.application.launchOrFocus("Preview")

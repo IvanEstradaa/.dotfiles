@@ -5,9 +5,14 @@ source brew/install.sh
 
 # Install diferrent Formulaes and Casks using xargs with Homebrew's install command
 # (using grep to ignore commented lines with #)
-echo "Installing packages..."
+echo "Installing Formulaes..."
 sleep 0.1
-grep -v '^\s*#' packages.txt | xargs brew install
+grep -v '^\s*#' formulaes.txt | xargs brew install
+
+echo "Installing Casks..."
+sleep 0.1
+grep -v '^\s*#' casks.txt | xargs brew install --cask
+
 
 # Download FCPX
 # open "https://www.apple.com/final-cut-pro/trial/download"
@@ -46,4 +51,9 @@ echo "Setting up symlinks for bin/ scripts... Please enter your password if prom
 source bin/setup.sh
 display_dynamic_progress_bar 20
 
-echo "Bootstrapping complete!"
+echo "Bootstrapping complete!
+
+Next Steps: Set Up macOS config, run the following in your terminal:
+
+source macos/setup.sh
+"

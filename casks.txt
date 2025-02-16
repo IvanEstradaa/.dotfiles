@@ -1,0 +1,23 @@
+#       Casks       #
+# app-cleaner
+# arc
+cloudflare-warp
+# docker
+hammerspoon
+# handbrake
+# homerow
+# karabiner-elements
+# makemkv
+nextcloud
+nikitabobko/tap/aerospace
+# obs
+openvpn-connect
+# pgadmin4
+prismlauncher
+raycast
+visual-studio-code
+# vlc
+warp
+whisky
+# wine-stable
+zen-browser

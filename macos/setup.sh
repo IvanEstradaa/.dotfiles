@@ -756,7 +756,7 @@ defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 # defaults write com.apple.finder CreateDesktop false
 
 # Code directory
-mkdir -p $HOME/projects.nosync
+mkdir -p $HOME/projects
 
 ###############################################################################
 # Kill affected applications                                                  #
@@ -781,7 +781,7 @@ done
 
 # echo "Done. Note that some of these changes require a logout/restart to take effect."
 
-response=$(osascript -e "tell app \"System Events\" to display dialog \"A system reboot is required to make changes take effect in your machine.\\n \\n Do you want to Reboot?\" buttons {\"Not Now\", \"Reboot\"} default button \"Reboot\" with title \"IvanEstradaa .dotfiles\" with icon POSIX file \"$(pwd)/macos/icon.png\"")
+response=$(osascript -e "tell app \"System Events\" to display dialog \"MacOs setup Completed! \n\nA system reboot is required to make changes take effect in your machine.\\n \\n Do you want to Reboot?\" buttons {\"Not Now\", \"Reboot\"} default button \"Reboot\" with title \"IvanEstradaa .dotfiles\" with icon POSIX file \"$(pwd)/macos/icon.png\"")
 
 # Check the user's response
 if [[ "$response" == *"button returned:Reboot"* ]]; then

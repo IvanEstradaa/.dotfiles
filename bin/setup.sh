@@ -1,5 +1,7 @@
-
-chmod +x $HOME/.dotfiles/bin/* && sudo find -L /usr/local/bin -type l -exec rm -i {} + && sudo find $HOME/.dotfiles/bin/ -mindepth 1 -maxdepth 1 -type f ! -name 'setup.sh' ! -exec test -e /usr/local/bin/$(basename {}) \; -exec ln -s {} /usr/local/bin/ \;
+chmod +x $HOME/.dotfiles/bin/*
+sudo mkdir -p /usr/local/bin/
+sudo find -L /usr/local/bin -type l -exec rm -i {} +
+sudo find $HOME/.dotfiles/bin/ -mindepth 1 -maxdepth 1 -type f ! -name 'setup.sh' ! -exec test -e /usr/local/bin/$(basename {}) \; -exec ln -s {} /usr/local/bin/ \;
 
 # This combination allows clean up old symlinks and ensure new ones are properly set up in /usr/local/bin/
 

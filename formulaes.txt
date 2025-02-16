@@ -1,0 +1,6 @@
+#       Formulaes       #
+node
+java
+gh
+# yarn
+# bitwarden-cli

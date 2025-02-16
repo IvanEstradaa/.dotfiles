@@ -6,7 +6,7 @@ local hyperTriggered = false
 function singlePressHyper()
     if not hyperTriggered then
         toggleBorder(0, 0, 1, 1)
-        hs.execute("remap")
+        hs.execute("/usr/local/bin/remap")
     end
     hyperTriggered = false
 end
