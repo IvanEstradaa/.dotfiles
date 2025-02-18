@@ -1,5 +1,5 @@
 #       Formulaes       #
-node
+node@22
 java
 gh
 # yarn
