@@ -32,6 +32,9 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 #defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
 #defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 
+# Auto hide menu bar
+defaults write NSGlobalDomain _HIHideMenuBar -bool true
+
 # Automatically quit printer app once the print jobs complete
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
@@ -55,7 +58,7 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 #defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
 # Disable auto-correct
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false # Not working
 
 # Set a custom wallpaper image. `DefaultDesktop.jpg` is already a symlink, and
 # all wallpapers are in `/Library/Desktop Pictures/`. The default is `Wave.jpg`.
@@ -91,18 +94,20 @@ osascript -e 'tell application "Finder" to set desktop picture to POSIX file "'"
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 
 # Use scroll gesture with the Ctrl (^) modifier key to zoom
-defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
-defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
+# defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true # Didn't work
+# defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144 # Didn't work
 
 # Follow the keyboard focus while zoomed in
 # defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 
-# Disable press-and-hold for keys in favor of key repeat
-#defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+# Enable press-and-hold for keys in favor of key repeat
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool true
 
 # Set a blazingly fast keyboard repeat rate
-#defaults write NSGlobalDomain KeyRepeat -int 1
-#defaults write NSGlobalDomain InitialKeyRepeat -int 10
+# defaults write NSGlobalDomain KeyRepeat -int 1
+# defaults write NSGlobalDomain InitialKeyRepeat -int 10
+defaults write -g KeyRepeat -int 1
+defaults write -g InitialKeyRepeat -int 20
 
 # Set language and text formats
 # Note: if you’re in the US, replace `EUR` with `USD`, `Centimeters` with
@@ -138,7 +143,7 @@ launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/nul
 sudo pmset -a displaysleep 5
 
 # Disable machine sleep while charging
-sudo pmset -c sleep 60
+# sudo pmset -c sleep 60 
 
 # Set machine sleep to 5 minutes on battery
 sudo pmset -b sleep 5
@@ -166,13 +171,17 @@ sudo chflags uchg /private/var/vm/sleepimage
 # Screen                                                                      #
 ###############################################################################
 
+# Disable Screen Saver
+defaults -currentHost write com.apple.screensaver idleTime 0
+
 # Require password immediately after sleep or screen saver begins
-defaults write com.apple.screensaver askForPassword -int 1
-defaults write com.apple.screensaver askForPasswordDelay -int 0
+defaults write com.apple.screensaver askForPassword -int 1 # Didn't work
+defaults write com.apple.screensaver askForPasswordDelay -int 0 # Didn't work
+osascript -e 'tell application "System Events" to set require password to wake of security preferences to true' # Using this instead
 
 # Save screenshots to dedicated folder
-mkdir -p "$HOME/Screenshots"
-defaults write com.apple.screencapture location -string "${HOME}/Screenshots"
+mkdir -p "$HOME/Pictures/Screenshots"
+defaults write com.apple.screencapture location -string "${HOME}/Pictures/Screenshots"
 
 # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
 defaults write com.apple.screencapture type -string "png"
@@ -205,8 +214,8 @@ defaults write com.apple.finder DisableAllAnimations -bool true
 # Don't show icons for hard drives, servers, and removable media on the desktop
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
 defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
-defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
-defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+defaults write com.apple.finder ShowMountedServersOnDesktop -bool false
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
 
 # Finder: show hidden files by default
 # defaults write com.apple.finder AppleShowAllFiles -bool true
@@ -214,17 +223,17 @@ defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 # Finder: show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
+# Finder: Show Path as Title
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+
 # Finder: show path bar
 defaults write com.apple.finder ShowPathbar -bool true
 
 # Finder: Show status bar
 defaults write com.apple.finder ShowStatusBar -bool true
 
-# Finder: Auto hide menu bar
-defaults write NSGlobalDomain _HIHideMenuBar -bool true
-
 # Display full POSIX path as Finder window title
-# defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 
 # Keep folders on top when sorting by name
 defaults write com.apple.finder _FXSortFoldersFirst -bool true
@@ -280,7 +289,7 @@ defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
 # Use list view in all Finder windows by default
 # Four-letter codes for the other view modes: `icnv`, `clmv`, `glyv`
-#defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 
 # Disable the warning before emptying the Trash
 #defaults write com.apple.finder WarnOnEmptyTrash -bool false
@@ -332,12 +341,12 @@ defaults write com.apple.dock minimize-to-application -bool true
 defaults write com.apple.dock persistent-apps -array
 
 # Show only open applications in the Dock
-#defaults write com.apple.dock static-only -bool true
+defaults write com.apple.dock static-only -bool true
 
 # Don’t animate opening applications from the Dock
 defaults write com.apple.dock launchanim -bool false
 
-# Change dock orientation to left
+# Change dock orientation to right
 defaults write com.apple.dock orientation right
 
 # Speed up Mission Control animations
@@ -345,7 +354,8 @@ defaults write com.apple.dock orientation right
 
 # Show group windows by application in Mission Control
 # ignore this: (i.e. use the old Exposé behavior instead)
-defaults write com.apple.dock expose-group-by-app -bool true
+#defaults write com.apple.dock expose-group-by-app -bool true # Didn't work
+defaults write com.apple.dock expose-group-apps -bool true # Used this instead
 
 # Disable Dashboard
 #defaults write com.apple.dashboard mcx-disabled -bool true
@@ -367,7 +377,7 @@ defaults write com.apple.dock autohide -bool true
 # Make Dock icons of hidden applications translucent
 #defaults write com.apple.dock showhidden -bool true
 
-# Don’t show recent applications in Dock
+# Disable show recent applications in Dock
 defaults write com.apple.dock show-recents -bool false
 
 # Disable the Launchpad gesture (pinch with thumb and three fingers)
@@ -399,16 +409,24 @@ defaults write com.apple.dock show-recents -bool false
 # 12: Notification Center
 # 13: Lock Screen
 # Top left screen corner
+# Modifiers
+# Possible values:
+# 	0: No Modifier
+# 	131072: Shift Key
+# 	262144: Control Key
+# 	524288: Option Key
+# 	1048576: Command Key
+
 #defaults write com.apple.dock wvous-tl-corner -int 3
-defaults write com.apple.dock wvous-tl-modifier -int 0
+# defaults write com.apple.dock wvous-tl-modifier -int 0
 # Top right screen corner
 #defaults write com.apple.dock wvous-tr-corner -int 2
-defaults write com.apple.dock wvous-tr-modifier -int 0
+# defaults write com.apple.dock wvous-tr-modifier -int 0
 # Bottom left screen corner 
-#defaults write com.apple.dock wvous-bl-corner -int 5
-defaults write com.apple.dock wvous-bl-modifier -int 10
+defaults write com.apple.dock wvous-bl-corner -int 10
+# defaults write com.apple.dock wvous-bl-modifier -int 0
 # Bottom right screen corner
-defaults write com.apple.dock wvous-br-corner -int 0
+# defaults write com.apple.dock wvous-br-corner -int 0
 
 ###############################################################################
 # Safari & WebKit                                                             #
@@ -461,9 +479,9 @@ defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebK
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 
 # Enable continuous spellchecking
-defaults write com.apple.Safari WebContinuousSpellCheckingEnabled -bool true
+# defaults write com.apple.Safari WebContinuousSpellCheckingEnabled -bool true #Not found
 # Disable auto-correct
-defaults write com.apple.Safari WebAutomaticSpellingCorrectionEnabled -bool false
+# defaults write com.apple.Safari WebAutomaticSpellingCorrectionEnabled -bool false # Not found
 
 # Disable AutoFill
 # defaults write com.apple.Safari AutoFillFromAddressBook -bool false
@@ -753,10 +771,12 @@ defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 ###############################################################################
 
 # Hide desktop icons
-# defaults write com.apple.finder CreateDesktop false
+defaults write com.apple.finder CreateDesktop false
 
-# Code directory
-mkdir -p $HOME/projects
+# (MacBook only) Allow use fringerprint to run sudo commands
+sed -i '' '2i\
+auth sufficient pam_tid.so\
+' /etc/pam.d/sudo
 
 ###############################################################################
 # Kill affected applications                                                  #
@@ -774,7 +794,6 @@ for app in "Activity Monitor" \
 	"Photos" \
 	"Safari" \
 	"SystemUIServer" \
-	"Terminal" \
 	"iCal"; do
 	killall "${app}" &> /dev/null
 done
@@ -787,3 +806,7 @@ response=$(osascript -e "tell app \"System Events\" to display dialog \"MacOs se
 if [[ "$response" == *"button returned:Reboot"* ]]; then
 osascript -e 'tell app "System Events" to restart'
 fi
+
+sleep 0.1
+
+killall "Terminal" &> /dev/null
