@@ -1,0 +1,20 @@
+#!/bin/zsh
+
+# List mounted devices under /Volumes, excluding /System and /Recovery mounted directories
+selected_device=$(df -lH | grep '/Volumes' | grep -v '/System' | grep -v 'Recovery' | awk '{print $NF}' | fzf --height 40% --reverse --inline-info --prompt "Select Volume: ")
+
+# Check if a device was selected
+if [ -n "$selected_device" ]; then
+  if [ "$1" = "eject" ]; then
+    # Eject the selected device
+    diskutil eject "$selected_device"
+    exit 0
+  fi
+  # Change to the selected device's directory
+  cd "$selected_device" || exit
+  # Start a new interactive zsh shell in that directory
+  exec zsh -i
+else
+  echo "No device selected. Exiting."
+  exit 1
+fi

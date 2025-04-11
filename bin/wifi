@@ -1,0 +1,95 @@
+#!/bin/bash
+# This script is used to connect to a Wi-Fi network using the command line.
+# It uses fzf to provide a user-friendly interface for selecting the network.
+
+# Run system_profiler once and store the output in a variable
+SYSTEM_PROFILE_OUTPUT=$(system_profiler SPAirPortDataType)
+
+# Extract the interface name
+INTERFACE=$(echo "$SYSTEM_PROFILE_OUTPUT" | grep -m 1 "Interfaces:" -A 1 | tail -n 1 | sed 's/^[[:space:]]*//' | sed 's/:$//')
+
+if [ "$1" == "on" ]; then
+    networksetup -setairportpower "$INTERFACE" on
+    echo "Wi-Fi turned on."
+    exit 0
+elif [ "$1" == "off" ]; then
+    networksetup -setairportpower "$INTERFACE" off
+    echo "Wi-Fi turned off."
+    exit 0
+fi
+
+STATUS=$(echo "$SYSTEM_PROFILE_OUTPUT" | grep -m 1 "Status:" | awk '{print $2}')
+
+# check if wifi is enabled, by checking the "Status:" line in the sytem_profiler output
+if [ "$STATUS" != "Connected" ]; then
+    echo "Wi-Fi is disabled. Please enable Wi-Fi and try again."
+    exit 1
+fi
+
+# Extract the current network name
+CURRENT_NETWORK=$(echo "$SYSTEM_PROFILE_OUTPUT" | grep -m 1 "Current Network Information" -A 1 | tail -n 1 | sed 's/^[[:space:]]*//' | sed 's/:$//')
+
+# Extract the list of other local Wi-Fi networks
+NETWORKS=$(echo "$SYSTEM_PROFILE_OUTPUT" | awk '/Other Local Wi-Fi Networks:/, /awdl0:/' | sed '1d;$d' | sed -n 's/^[[:space:]]*\([^:]*\):/\1/p' | sed 's/^[[:space:]]*//' | awk 'NR % 6 == 1' | grep -v "$CURRENT_NETWORK" | awk '!seen[$0]++')
+
+# Extract lines between "Other Local Wi-Fi Networks:" and "awdl0:" 
+# Remove the first and last lines
+# Extract the SSID names, removing leading spaces and colons
+# Remove leading whitespace, for example "    " to ""
+# Keep every 6th line, in order to avoid retrieving other information
+# Remove the current network from the list
+# Remove duplicate lines
+
+
+# For getting saved Wi-Fi networks: networksetup -listpreferredwirelessnetworks "INTERFACE" 
+
+# For powering on/off Wi-Fi: networksetup -setairportpower "INTERFACE" "on" or "off"
+
+# For connecting to Wi-FI network: networksetup -setairportnetwork "INTERFACE" "NEWORK" "PASSWORD"
+
+# For getting the password of Wi-Fi network, using keymaster command: keymaster get "NETWORK"
+# For setting the password of Wi-Fi network, using keymaster command: keymaster set "NETWORK" "PASSWORD"
+
+
+SELECTED_NETWORK=$(echo "$NETWORKS" | fzf --height 40% --reverse --inline-info --header "Current Network: $CURRENT_NETWORK" --header-lines 0 --prompt "Select Wi-Fi network: ")
+
+# Check if a network was selected
+if [ -z "$SELECTED_NETWORK" ]; then
+    echo "No network selected. Exiting."
+    exit 1
+fi
+
+# Check if network is in keymaster, if not, ask for password in the terminal
+
+PASSWORD=$(keymaster get "$SELECTED_NETWORK" 2>/dev/null)
+if [ $? -ne 0 ] || [ -z "$PASSWORD" ]; then
+    echo "Enter password for $SELECTED_NETWORK:"
+    read -s PASSWORD
+    networksetup -setairportnetwork "$INTERFACE" "$SELECTED_NETWORK" "$PASSWORD";
+    keymaster set "$SELECTED_NETWORK" "$PASSWORD"
+else 
+    networksetup -setairportnetwork "$INTERFACE" "$SELECTED_NETWORK" "$PASSWORD";
+    echo "Connected to $SELECTED_NETWORK network. Exiting."
+fi
+
+
+
+
+
+
+# NOTES:
+
+#echo $NETWORKS | fzf --height 40% --reverse --inline-info --header "Current Network: $CURRENT_NETWORK" --header-lines 0 --prompt "Select Wi-Fi network: " --preview 'echo {} | awk "{print \$1}" | xargs -I{} system_profiler SPAirPortDataType | grep -A 1 "SSID: {}"'
+
+# The above command will show the SSID and other details of the selected Wi-Fi network in the preview window.
+# The `awk` command extracts the SSID from the selected line, and `xargs` passes it to `system_profiler` to get detailed information about that network.
+# The `grep -A 10` command shows the SSID and the next 10 lines of information about that network.
+# The `--header` option displays the current network name at the top of the fzf window.
+# The `--header-lines 1` option ensures that the first line of the header is not included in the fzf output.
+# The `--prompt` option sets the prompt for the fzf selection.
+# The `--height` option sets the height of the fzf window to 40% of the terminal height.
+# The `--reverse` option makes the fzf window appear at the top of the terminal.
+# The `--inline-info` option shows the number of matches found in the fzf window.
+# The `--preview` option shows a preview of the selected item in the fzf window.
+# The `--preview` command uses `awk` to extract the SSID from the selected line, and then uses `xargs` to pass that SSID to `system_profiler` to get detailed information about that network.
+# The `grep -A 10` command shows the SSID and the next 10 lines of information about that network.

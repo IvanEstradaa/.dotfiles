@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# This script is used to send files via AirDrop using the command line.
+# It checks if Bluetooth is enabled, and if not, it enables it temporarily to send the files.
+# Usage: airdrop <file1> <file2> ...
+
+if [[ $(blueutil -p) == 0 ]] ; then
+    blueutil -p 1
+    airdrop "$@"
+    blueutil -p 0
+else
+    airdrop "$@"
+fi
