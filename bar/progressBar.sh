@@ -38,4 +38,4 @@ display_dynamic_progress_bar() {
     echo # Move to the next line after completion
 }
 
-# display_dynamic_progress_bar 20
+# Usage: display_dynamic_progress_bar 20

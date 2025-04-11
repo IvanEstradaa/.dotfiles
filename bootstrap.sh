@@ -13,18 +13,19 @@ echo "Installing Casks..."
 sleep 0.1
 grep -v '^\s*#' casks.txt | xargs brew install --cask
 
-
-# Download FCPX
-# open "https://www.apple.com/final-cut-pro/trial/download"
-# echo "Downloading FCPX..."
-# curl -L# -o ~/Downloads/FCPX.dmg "https://www.apple.com/final-cut-pro/trial/download"
-
+    
 source bar/progressBar.sh
+
 
 # Setup Nextcloud's VFS configuration
 echo "Setting up Nextcloud..."
 source nextcloud/setup.sh
 display_dynamic_progress_bar 10 
+
+# Setup LibreWolf customization
+echo "Setting up LibreWolf..."
+source librewolf/setup.sh
+display_dynamic_progress_bar 12
 
 # Setup configuration for Aerospace tiling window manager
 echo "Setting up configuration for Aerospace..."
@@ -36,9 +37,14 @@ echo "Setting up configuration for Hammerspoon..."
 source hammerspoon/setup.sh
 display_dynamic_progress_bar 30
 
-# Setup crontabs and crontab_log
-echo "Setting up cron jobs..."
-source crontab/setup.sh
+# Setup java symlink
+echo "Setting up Java..." 
+source java/setup.sh
+display_dynamic_progress_bar 6
+
+# Setup configuration for yazi
+echo "Setting up configuration for yazi..."
+source yazi/setup.sh
 display_dynamic_progress_bar 10
 
 # Setup .zrsch aliases
