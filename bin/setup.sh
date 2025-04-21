@@ -14,3 +14,4 @@ sudo find $HOME/.dotfiles/bin/ -mindepth 1 -maxdepth 1 -type f ! -name 'setup.sh
 # Notes:
 # For drag bin see: https://github.com/Wevah/dragterm/issues/2 , implementation with yazi: https://github.com/nik012003/ripdrag/issues/19
 # For keymaster bin see: https://github.com/johnthethird/keymaster.git, later see qrcode implementation: https://apple.stackexchange.com/questions/176119/how-to-access-the-wi-fi-password-through-terminal 
+# For localsend bin see: https://github.com/zpp0196/localsend-rs?tab=readme-ov-file
