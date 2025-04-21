@@ -1,0 +1,15 @@
+/* Hide hotizontal tabs */
+#TabsToolbar { display: none; }
+
+/* Hides sidebar header */
+#sidebar-box #sidebar-header {
+    display: none !important;
+}
+
+/*hide navigation bar when it is not focused; use Ctrl+L to get focus */
+#main-window:not([customizing]) #navigator-toolbox:not(:focus-within):not(:hover) {
+    margin-top: -40px;
+}
+#navigator-toolbox {
+    transition: 0.2s margin-top ease-out;
+}
