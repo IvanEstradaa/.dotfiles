@@ -20,11 +20,14 @@ subLayer["B"] = {
 }
 
 subLayer["O"] = {
-    ["B"] = {app = "Safari"},
+    ["B"] = {app = "'Zen Browser'"},
     ["M"] = {app = "Messages"},
     ["E"] = {app = "FindMy"},
-    ["T"] = {app = "Warp"},
+    ["T"] = {app = "WezTerm"},
     ["C"] = {app = "'Visual Studio Code'"},
+    ["W"] = {app = "WhatsApp"},
+    ["S"] = {app = "Safari"},
+    ["F"] = {app = "OnlyOffice"},
 }
 
 subLayer["R"] = {
@@ -62,6 +65,12 @@ subLayer["C"] = {
     ["A"] = {url = "x-apple.systempreferences:com.apple.settings.Storage"},
 }
 
+subLayer["W"] = {
+    ["H"] = {window = "left", n = 2},
+    ["K"] = {window = "left", n = 4},
+    ["L"] = {window = "right", n = 2},
+}
+
 subLayer["M"] = {
     ["R"] = {reload = "Reload hammerspoon config"}, 
     ["C"] = {code = "~/.config/hammerspoon"}, 
@@ -71,7 +80,7 @@ subLayer["M"] = {
 --     ["Z"] = {mods = {"cmd", "alt"}, key = "V", type = types.keyStroke},
 -- }
 
-local function mouseLazyCenter()
+function mouseLazyCenter()
     local frame = hs.window.focusedWindow():frame()
     -- Calculate the center of the window
     local centerX = frame.x + frame.w / 2
@@ -101,17 +110,22 @@ listenForSubLayers = hs.eventtap.new({hs.eventtap.event.types.keyDown, hs.eventt
 
     if activeSubLayer == "" then 
         if key == "H" then
-            hs.window.focusedWindow():focusWindowWest()
+            hs.window.focusedWindow():focusWindowWest(nil, true, false)
         elseif key == "J" then
-            hs.window.focusedWindow():focusWindowSouth()
+            hs.window.focusedWindow():focusWindowSouth(nil, true, false)
         elseif key == "K" then
-            hs.window.focusedWindow():focusWindowNorth()
+            hs.window.focusedWindow():focusWindowNorth(nil, true, false)
         elseif key == "L" then
-            hs.window.focusedWindow():focusWindowEast()
+            hs.window.focusedWindow():focusWindowEast(nil, true, false)
         end
         mouseLazyCenter()
         hyperTriggered = true
     end
+
+    if key then -- If the key is not nil, then continue the event propagation
+        return true
+    end
+    
     event:stopPropagation()
 end)
 
@@ -120,21 +134,43 @@ listenForActions = hs.eventtap.new({hs.eventtap.event.types.keyDown, hs.eventtap
     local action = subLayer[activeSubLayer][key]
     local keyUps = event:getType() == hs.eventtap.event.types.keyUp
 
+    -- if activeSubLayer == "" then listenForActions:stop() return false end
+
     if keyUps then
-        if key == hyperKey or key == activeSubLayer then 
+        if key == hyperKey then 
             activeSubLayer = ""
             listenForActions:stop()
-            return false
-        else return true end
+            listenForSubLayers:stop()
+        end
+        if key == activeSubLayer then
+            activeSubLayer = ""
+            deleteBar()
+            listenForActions:stop()
+        end
+        return false
     end
 
     if action then
-        if action.app then
+        if action.app then  
             hs.execute("open -a " .. action.app)
+            mouseLazyCenter()
         elseif action.url then
             hs.execute("open " .. action.url)
+        elseif action.window then
+            -- if not key == past and subLayer[activeSubLayer][past].n < 4 then
+            --     hs.alert.show("Not past")
+            --     subLayer[activeSubLayer][past].n = 2
+            -- end
+            -- past = key
+            windowManagement(action.window, action.n)
+            if action.n+1 == 4 then
+                action.n = 1
+            elseif action.n < 4 then
+                action.n = action.n + 1
+            end
         elseif action.brightness then
             hs.brightness.set(hs.brightness.get() + action.brightness)
+            createBar(hs.brightness.get() / 100)
         elseif action.volume then
             local new = hs.audiodevice.defaultOutputDevice():volume() + action.volume
             if new < 0 then 
@@ -144,7 +180,6 @@ listenForActions = hs.eventtap.new({hs.eventtap.event.types.keyDown, hs.eventtap
             end
             hs.audiodevice.defaultOutputDevice():setVolume(new)
             createBar(new / 100)
-            hs.timer.doAfter(1.2, deleteBar)
         elseif action.keys then
             hs.execute("" .. " " .. action.keys)
         elseif action.code then
@@ -152,6 +187,10 @@ listenForActions = hs.eventtap.new({hs.eventtap.event.types.keyDown, hs.eventtap
         elseif action.reload then
             hs.reload()
         end
+    end
+
+    if key then -- If the key is not nil, then continue the event propagation
+        return true 
     end
 
     event:stopPropagation()

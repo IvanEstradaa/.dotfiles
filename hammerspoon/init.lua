@@ -1,27 +1,38 @@
-require("grid")
 require("hyperkey")
 require("scroll")
 require("border")
-require("directories")
+-- require("directories")
 require("bar")
-
+require("windows")
+require("click")
+-- require("homerows")
 hs.execute("/usr/local/bin/remap original")
 
-hs.hotkey.bind({}, "F19", toggleGrid, nil, startScroll)
+-- hs.application.launchOrFocus("Finder")
+-- hs.application.find("Finder"):kill()
+
+-- function applicationWatcher(appName, eventType, appObject)
+--   if (eventType == hs.application.watcher.launched) then
+--     if (appName == "Finder") then
+--       appObject:kill()
+--     end
+--   end
+-- end
+-- 
+-- appWatcher = hs.application.watcher.new(applicationWatcher)
+-- appWatcher:start()
+
+hs.hotkey.bind({}, "F19", startClick, nil, startScroll)
 
 hs.hotkey.bind({"cmd", "alt"}, "V", function()
   hs.application.launchOrFocus("Preview")
-  -- local app = hs.appfinder.appFromName("Preview")
-  -- app:selectMenuItem({"Archivo", "Nuevo a partir del Portapapeles"})
   hs.timer.doAfter(0.01, function()
     hs.eventtap.keyStroke({"cmd"}, "N")
   end)
 end)
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "SPACE", function()
-  -- kill textedit app
-  hs.execute("killall TextEdit")
-  hs.execute("ourls -y $(ls -t ~/Downloads | head -n 1 | xargs -I {} echo ~/Downloads/{})")
+  hs.execute("/usr/local/bin/ourls -y $(ls -t ~/Downloads | head -n 1 | xargs -I {} echo ~/Downloads/{})") -- Get the last downloaded file and pass it as an argument to ourls
 end)
 
 -- Disable Cmd + H
@@ -50,11 +61,3 @@ quitModal:bind("cmd", "Q", doQuit)
 
 -- Reload config alert
 hs.alert.show("Config loaded")
-
-
--- NOTES:
-
--- Disable window animations
--- hs.window.animationDuration = 0
--- Disable window shadows
--- hs.window.setShadows(false)
