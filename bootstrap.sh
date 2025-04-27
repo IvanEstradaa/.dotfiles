@@ -24,7 +24,7 @@ display_dynamic_progress_bar 10
 
 # Setup LibreWolf customization
 echo "Setting up LibreWolf..."
-source librewolf/setup.sh
+source chrome/setup.sh
 display_dynamic_progress_bar 12
 
 # Setup configuration for Aerospace tiling window manager
@@ -47,8 +47,8 @@ echo "Setting up configuration for yazi..."
 source yazi/setup.sh
 display_dynamic_progress_bar 10
 
-# Setup .zrsch aliases
-echo "Setting up .zshrc aliases..."
+# Setup .zshrc configuration
+echo "Setting up zsh configuration..."
 source zsh/setup.sh
 display_dynamic_progress_bar 15
 
@@ -63,3 +63,5 @@ Next Steps: Set Up macOS config, run the following in your terminal:
 
 source macos/setup.sh
 "
+
+# typeset -g POWERLEVEL9K_BATTERY_STAGES='\UF008E\UF007A\UF007B\UF007C\UF007D\UF007E\UF007F\UF0080\UF0081\UF0082\UF0079'

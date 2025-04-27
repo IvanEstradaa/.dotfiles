@@ -1,6 +1,27 @@
 #       Formulaes       #
-node@22
-java
-gh
-# yarn
 # bitwarden-cli
+blueutil
+clipboard
+fd
+ffmpeg
+font-meslo-lg-nerd-font
+# font-symbols-only-nerd-font
+fzf
+gh
+imagemagick
+java
+jq
+node@22
+poppler
+powerlevel10k
+ripgrep
+# rust
+sevenzip
+vldmrkl/formulae/airdrop-cli --HEAD
+# yarn
+yazi
+yt-dlp
+zoxide
+zsh-autosuggestions
+zsh-completions
+zsh-syntax-highlighting

@@ -1,23 +1,28 @@
 #       Casks       #
 # app-cleaner
 # arc
+# betterdisplay
 cloudflare-warp
 # docker
 hammerspoon
 # handbrake
 # homerow
 # karabiner-elements
+librewolf --no-quarantine
+# localsend
 # makemkv
 nextcloud
 nikitabobko/tap/aerospace
 # obs
+onlyoffice
 openvpn-connect
 # pgadmin4
 prismlauncher
 raycast
 visual-studio-code
 # vlc
-warp
-whisky
+# warp
+wezterm@nightly
+# whisky
 # wine-stable
 zen-browser
