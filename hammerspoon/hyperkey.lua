@@ -20,7 +20,7 @@ subLayer["B"] = {
 }
 
 subLayer["O"] = {
-    ["B"] = {app = "'Zen Browser'"},
+    ["B"] = {app = "'LibreWolf'"},
     ["M"] = {app = "Messages"},
     ["E"] = {app = "FindMy"},
     ["T"] = {app = "WezTerm"},

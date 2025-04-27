@@ -211,10 +211,7 @@ local function mouseMovement(pointA, pointB)
             event.newMouseEvent(event.types.leftMouseDragged, midPoint):post()
         end
     end
-    hs.timer.doAfter(0.1, function()
-        -- hs.mouse.absolutePosition(pointB)
-        event.newMouseEvent(event.types.leftMouseDraggedot, pointB):post()
-    end)
+    event.newMouseEvent(event.types.leftMouseDragged, pointB):post()
 
 end
 

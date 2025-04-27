@@ -1,0 +1,18 @@
+#!/usr/bin/osascript
+
+on run argv
+  set action to item 1 of argv # Get the first argument (e.g., "download")
+  set fileAliases to {}
+
+  # Iterate over the rest of the arguments (ignoring the first one)
+  repeat with i from 2 to count of argv
+      set filePath to item i of argv
+      copy (POSIX file filePath as alias) to the end of fileAliases
+  end repeat
+
+  # Reveal the files in Finder
+  tell application "Finder" to reveal fileAliases
+
+  # Send the first argument to Hammerspoon
+  do shell script "hs -c 'nextcloudFile(\"" & action & "\")'"
+end run

@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 # List mounted devices under /Volumes, excluding /System and /Recovery mounted directories
-selected_device=$(df -lH | grep '/Volumes' | grep -v '/System' | grep -v 'Recovery' | awk -F'/Volumes/' '{print $2}' | fzf --height 40% --reverse --inline-info --prompt "Select Volume: ")
+selected_device=$(df -lH | grep '/Volumes' | grep -v '/System' | grep -v 'Recovery' | grep -v 'Library' | awk -F'/Volumes/' '{print $2}' | fzf --height 40% --reverse --inline-info --prompt "Select Volume: ")
 
 # Check if a device was selected
 if [ -n "$selected_device" ]; then

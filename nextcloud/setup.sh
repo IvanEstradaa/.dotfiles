@@ -7,6 +7,8 @@ open -a Nextcloud
 sleep 1
 
 # We write the configuration line in the nextcloud's config file: https://docs.nextcloud.com/desktop/3.2/advancedusage.html
-echo "showExperimentalOptions=true" >> ~/Library/Preferences/Nextcloud/nextcloud.cfg
+sed -i '' '2i\
+showExperimentalOptions=true
+' ~/Library/Preferences/Nextcloud/nextcloud.cfg
 
 pkill -f "Nextcloud"

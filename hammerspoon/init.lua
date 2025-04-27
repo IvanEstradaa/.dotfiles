@@ -1,11 +1,11 @@
 require("hyperkey")
 require("scroll")
 require("border")
--- require("directories")
 require("bar")
 require("windows")
 require("click")
--- require("homerows")
+require("nextcloudFile")
+
 hs.execute("/usr/local/bin/remap original")
 
 -- hs.application.launchOrFocus("Finder")
@@ -21,6 +21,19 @@ hs.execute("/usr/local/bin/remap original")
 -- 
 -- appWatcher = hs.application.watcher.new(applicationWatcher)
 -- appWatcher:start()
+
+--local mousePos = hs.mouse.getRelativePosition(frame)
+--hs.console.printStyledtext("Mouse position: " .. mousePos.x .. ", " .. mousePos.y)
+
+hs.ipc.cliInstall() -- Install the Hammerspoon CLI tool
+
+hs.hotkey.bind({"cmd"}, "Space", function()
+  hs.application.launchOrFocus("Raycast")
+  local finder = hs.application.find("Finder")
+  if finder then
+    finder:kill()
+  end
+end)
 
 hs.hotkey.bind({}, "F19", startClick, nil, startScroll)
 
