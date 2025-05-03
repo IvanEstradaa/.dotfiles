@@ -3,6 +3,8 @@
 function nextcloudFile(action)
     hs.application.launchOrFocus("Finder")
 
+    hs.timer.usleep(150000) -- wait 0.15 seconds
+
     local screen = hs.screen.mainScreen():fullFrame()
     hs.window.focusedWindow():move(hs.geometry.rect(0, 0, screen.w, screen.h),nil,true,0)
 

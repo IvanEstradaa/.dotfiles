@@ -1,7 +1,9 @@
-# Install Homebrew
-echo "Installing Homebrew..."
-sleep 0.1
-source brew/install.sh
+# Install Homebrew if not already installed
+if ! command -v brew &>/dev/null; then
+    echo "Installing Homebrew..."
+    sleep 0.1
+    source brew/install.sh
+fi
 
 # Install diferrent Formulaes and Casks using xargs with Homebrew's install command
 # (using grep to ignore commented lines with #)
@@ -42,10 +44,15 @@ echo "Setting up Java..."
 source java/setup.sh
 display_dynamic_progress_bar 6
 
+# Setup configuration for WezTerm
+echo "Setting up configuration for WezTerm..."
+source wezterm/setup.sh
+display_dynamic_progress_bar 10
+
 # Setup configuration for yazi
 echo "Setting up configuration for yazi..."
 source yazi/setup.sh
-display_dynamic_progress_bar 10
+display_dynamic_progress_bar 20
 
 # Setup .zshrc configuration
 echo "Setting up zsh configuration..."

@@ -246,10 +246,10 @@ local function mouseEvent(type, clicks, initial_pos, final_pos)
 
         -- Post the final mouse up event
         hs.mouse.absolutePosition(final_pos)
-        hs.timer.doAfter(0.3, function()
-            event.newMouseEvent(event.types.leftMouseUp, final_pos):post()
-        end)
-
+        hs.timer.usleep(50000) -- wait 0.05 seconds
+        hs.eventtap.event.newMouseEvent(event.types.leftMouseDragged, final_pos):post()
+        hs.timer.usleep(250000) -- wait 0.25 seconds
+        event.newMouseEvent(event.types.leftMouseUp, final_pos):post()
     end
     
 end

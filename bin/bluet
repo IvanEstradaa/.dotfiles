@@ -6,6 +6,9 @@ elif [ "$1" = "off" ] ; then
     blueutil -p 0
     echo "Bluetooth is OFF"
     exit 0
+elif [ "$1" = "info" ] ; then
+    blueutil
+    exit 0
 fi
 
 if [[ $(blueutil -p) == 0 ]] ; then blueutil -p 1 ; echo "Bluetooth is ON" ; else blueutil -p 0 ; echo "Bluetooth is OFF" ; fi

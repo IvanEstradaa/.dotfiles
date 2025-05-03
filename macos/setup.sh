@@ -774,9 +774,12 @@ defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 defaults write com.apple.finder CreateDesktop false
 
 # (MacBook only) Allow use fringerprint to run sudo commands
-sed -i '' '2i\
-auth sufficient pam_tid.so\
-' /etc/pam.d/sudo
+# sed -i '' '2i\
+# auth sufficient pam_tid.so\
+# ' /etc/pam.d/sudo
+
+# Enable Touch ID or Apple Watch to run sudo commands even on clamshell mode or if touch id not available. See: https://github.com/Logicer16/pam-watchid
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/logicer16/pam-watchid/HEAD/install.sh)" -- enable
 
 ###############################################################################
 # Kill affected applications                                                  #

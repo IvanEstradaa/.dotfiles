@@ -2,10 +2,11 @@ local subLayer = {}
 local hyperKey = "F20"
 local activeSubLayer = ""
 local hyperTriggered = false
+local size = 2
 
 function singlePressHyper()
     if not hyperTriggered then
-        toggleBorder(0, 0, 1, 1)
+        toggleBorder(0, 0, 1, 1, "full")
         hs.execute("/usr/local/bin/remap")
     end
     hyperTriggered = false
@@ -145,6 +146,7 @@ listenForActions = hs.eventtap.new({hs.eventtap.event.types.keyDown, hs.eventtap
         if key == activeSubLayer then
             activeSubLayer = ""
             deleteBar()
+            size = 2
             listenForActions:stop()
         end
         return false
@@ -162,11 +164,14 @@ listenForActions = hs.eventtap.new({hs.eventtap.event.types.keyDown, hs.eventtap
             --     subLayer[activeSubLayer][past].n = 2
             -- end
             -- past = key
+            if action.n < 4 then
+                action.n = size
+            end
             windowManagement(action.window, action.n)
-            if action.n+1 == 4 then
-                action.n = 1
-            elseif action.n < 4 then
-                action.n = action.n + 1
+            if size+1 == 4 then
+                size = 1
+            elseif size < 4 then
+                size = size + 1
             end
         elseif action.brightness then
             hs.brightness.set(hs.brightness.get() + action.brightness)
@@ -183,7 +188,7 @@ listenForActions = hs.eventtap.new({hs.eventtap.event.types.keyDown, hs.eventtap
         elseif action.keys then
             hs.execute("" .. " " .. action.keys)
         elseif action.code then
-            hs.execute("code " .. action.code)
+            hs.execute("${EDITOR:-vi}" .. action.code)
         elseif action.reload then
             hs.reload()
         end
@@ -197,6 +202,6 @@ listenForActions = hs.eventtap.new({hs.eventtap.event.types.keyDown, hs.eventtap
 end)
 
 pressedHyper = function() listenForSubLayers:start(); end
-releasedHyper = function() listenForSubLayers:stop(); singlePressHyper(); end
+releasedHyper = function() listenForSubLayers:stop(); singlePressHyper(); size = 2; deleteBar(); end
 
 hs.hotkey.bind({}, hyperKey, pressedHyper, releasedHyper)

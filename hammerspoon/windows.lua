@@ -2,7 +2,6 @@ local screen = hs.screen.mainScreen():fullFrame()
 local orientation = {}
 orientation["left"]= {x = 0, y = 0}
 orientation["right"]= {x = screen.w, y = 0}
-past = ""
 
 function windowManagement(type, n)
 
