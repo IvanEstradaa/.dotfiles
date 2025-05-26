@@ -89,7 +89,7 @@ keymap = [
 
 	# My "A"dded actions
 	{ on = [ "A", "a" ], run = 'shell -- dropair "$@"', desc = "AirDrop selected file(s)" },
-	{ on = [ "A", "z" ], run = 'shell  --cursor=8 --interactive -- zip -rj .zip "$@"', desc = "Zip selected file(s)" },
+	{ on = [ "A", "z" ], run = 'shell  --cursor=7 --interactive -- zip -r .zip $(basename "$0")', desc = "Zip selected file(s)" },
 	{ on = [ "A", "d" ], run = 'shell -- drag "$@" -x 2>/dev/null &', desc = "Drag selected file(s)" },
 	{ on = [ "A", "e" ], run = 'shell -- diskutil eject "$@"', desc = "Eject selected volume(s)" },
 	{ on = [ "A", "s" ], run = 'shell --block -- localsend send "$@"', desc = "LocalSend selected file(s)" },

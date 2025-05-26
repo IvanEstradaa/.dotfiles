@@ -298,7 +298,7 @@ defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 #defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
 # Show the ~/Library folder
-chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library
+# chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library # Disabled for now
 
 # Show the /Volumes folder
 #sudo chflags nohidden /Volumes

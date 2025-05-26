@@ -26,4 +26,4 @@ Once the previous script is done, execute MacOS setup script to change looks and
 source macos/setup.sh
 ``` 
 
-Once the macOS setup is complete, a pop-up will appear asking you to reboot your machine in order for some changes to take effect.
+When macOS setup finishes, a pop-up will appear asking you to reboot your machine in order for some of the changes take effect.

@@ -29,6 +29,11 @@ fi
 # Extract the current network name
 CURRENT_NETWORK=$(echo "$SYSTEM_PROFILE_OUTPUT" | grep -m 1 "Current Network Information" -A 1 | tail -n 1 | sed 's/^[[:space:]]*//' | sed 's/:$//')
 
+if [ "$1" == "current" ]; then
+    echo "Current network: $CURRENT_NETWORK"
+    exit 0
+fi
+
 # Extract the list of other local Wi-Fi networks
 NETWORKS=$(echo "$SYSTEM_PROFILE_OUTPUT" | awk '/Other Local Wi-Fi Networks:/, /awdl0:/' | sed '1d;$d' | sed -n 's/^[[:space:]]*\([^:]*\):/\1/p' | sed 's/^[[:space:]]*//' | awk 'NR % 6 == 1' | grep -v "$CURRENT_NETWORK" | awk '!seen[$0]++')
 
