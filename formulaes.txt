@@ -11,12 +11,18 @@ gh
 imagemagick
 java
 jq
+lazygit
 node@22
+nvim
+pam-reattach
 poppler
+posting
 powerlevel10k
 ripgrep
 # rust
 sevenzip
+spotify_player
+tmux
 vldmrkl/formulae/airdrop-cli --HEAD
 # yarn
 yazi

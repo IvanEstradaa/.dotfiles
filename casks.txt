@@ -25,4 +25,4 @@ visual-studio-code
 wezterm@nightly
 # whisky
 # wine-stable
-zen-browser
+# zen-browser
