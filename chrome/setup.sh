@@ -82,7 +82,8 @@ NAMES=(
 mkdir -p "$PROFILE_PATH/extensions" 
 
 # Loop through the extension URLs and download them
-for i in "${!EXTENSIONS[@]}"; do
+for ((i=1; i<=${#EXTENSIONS[@]}; i++)); do
+
   EXT_URL="${EXTENSIONS[$i]}"
   EXT_NAME="${NAMES[$i]}.xpi"
 
@@ -113,8 +114,8 @@ echo "Extensions installed successfully!"
 #####################
 # Method used: https://superuser.com/questions/373276/how-to-enable-extension-when-running-firefox-for-the-first-time 
 
-open -a "LibreWolf" --new --args -silent -nosplash
-sleep 1 # ensure the extensions.json file is updated with the new installed extensions
+open -a "LibreWolf" 
+sleep 5 # ensure the extensions.json file is updated with the new installed extensions
 pkill -f "LibreWolf" # close librewolf instance
 
 EXTENSIONS_JSON="$PROFILE_PATH/extensions.json"
