@@ -781,6 +781,11 @@ defaults write com.apple.finder CreateDesktop false
 # Enable Touch ID or Apple Watch to run sudo commands even on clamshell mode or if touch id not available. See: https://github.com/Logicer16/pam-watchid
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/logicer16/pam-watchid/HEAD/install.sh)" -- enable
 
+# Let touch Id or Apple Watch to run sudo commands even if inside tmux. See: https://github.com/fabianishere/pam_reattach
+sed -i '' '2i\
+auth optional /opt/homebrew/lib/pam/pam_reattach.so
+' /private/etc/pam.d/sudo_local
+
 ###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
