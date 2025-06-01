@@ -1,4 +1,5 @@
 #       Formulaes       #
+bat
 # bitwarden-cli
 blueutil
 clipboard

@@ -1,13 +1,15 @@
 # Reinstall librewolf with --no-quarantine to remove the flags that indicate the app is damaged
 brew reinstall librewolf --no-quarantine
 
+sleep 1
+
 ########################################
 # Set the default browser to LibreWolf #
 ########################################
 open -a "LibreWolf" --new --args -silent -nosplash -setDefaultBrowser
 # Chromium-based browsers: open -a "Google Chrome" --new --args --make-default-browser
 
-sleep 1 # wait for the popup to be shown
+sleep 3 # wait for the popup to be shown
 
 # Run the following osascript script to accept the default browser prompt:
 # osascript <<EOF
@@ -116,40 +118,40 @@ echo "Extensions installed successfully!"
 #####################
 # Enable extensions #
 #####################
-# Method used: https://superuser.com/questions/373276/how-to-enable-extension-when-running-firefox-for-the-first-time 
-
-open -a "LibreWolf" 
-sleep 5 # ensure the extensions.json file is updated with the new installed extensions
-pkill -f "LibreWolf" # close librewolf instance
-
-EXTENSIONS_JSON="$PROFILE_PATH/extensions.json"
-
-cp $EXTENSIONS_JSON "$EXTENSIONS_JSON.bak"
-
-# Update the extensions.json file to enable the extensions
-echo "Enabling installed extensions..."
-
-# Loop through the NAMES array and call jq for each extension ID
-for ext_id in "${NAMES[@]}"; do
-    # Run jq for each extension, enabling it by modifying active and userDisabled fields
-    jq --arg ext_id "$ext_id" '
-        .addons |= map(
-            if .id == $ext_id then
-                .active = true | .userDisabled = false
-            else .
-            end
-        )
-    ' "$EXTENSIONS_JSON" > "$EXTENSIONS_JSON.tmp" && mv "$EXTENSIONS_JSON.tmp" "$EXTENSIONS_JSON"
-    
-    # Check if jq succeeded
-    if [[ $? -ne 0 ]]; then
-        echo "Error updating $EXTENSIONS_JSON for extension $ext_id. Restoring from backup."
-        mv "$EXTENSIONS_JSON.bak" "$EXTENSIONS_JSON"
-        exit 1
-    fi
-
-    echo "Extension $ext_id enabled successfully."
-done
-
-echo "All extensions enabled successfully!"
+# # Method used: https://superuser.com/questions/373276/how-to-enable-extension-when-running-firefox-for-the-first-time 
+#
+# open -a "LibreWolf" 
+# sleep 5 # ensure the extensions.json file is updated with the new installed extensions
+# pkill -f "LibreWolf" # close librewolf instance
+#
+# EXTENSIONS_JSON="$PROFILE_PATH/extensions.json"
+#
+# cp $EXTENSIONS_JSON "$EXTENSIONS_JSON.bak"
+#
+# # Update the extensions.json file to enable the extensions
+# echo "Enabling installed extensions..."
+#
+# # Loop through the NAMES array and call jq for each extension ID
+# for ext_id in "${NAMES[@]}"; do
+#     # Run jq for each extension, enabling it by modifying active and userDisabled fields
+#     jq --arg ext_id "$ext_id" '
+#         .addons |= map(
+#             if .id == $ext_id then
+#                 .active = true | .userDisabled = false
+#             else .
+#             end
+#         )
+#     ' "$EXTENSIONS_JSON" > "$EXTENSIONS_JSON.tmp" && mv "$EXTENSIONS_JSON.tmp" "$EXTENSIONS_JSON"
+#
+#     # Check if jq succeeded
+#     if [[ $? -ne 0 ]]; then
+#         echo "Error updating $EXTENSIONS_JSON for extension $ext_id. Restoring from backup."
+#         mv "$EXTENSIONS_JSON.bak" "$EXTENSIONS_JSON"
+#         exit 1
+#     fi
+#
+#     echo "Extension $ext_id enabled successfully."
+# done
+#
+# echo "All extensions enabled successfully!"
 

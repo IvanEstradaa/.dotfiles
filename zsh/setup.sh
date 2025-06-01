@@ -33,10 +33,10 @@ bindkey '^[[1;3C' forward-word
 " >> ~/.zshrc
 
 echo "Adding fzf to zsh..."
-echo "eval '$(fzf --zsh)'" >> ~/.zshrc
+echo "eval '\$(fzf --zsh)'" >> ~/.zshrc
 
 echo "Adding zoxide to zsh..."
-echo "eval '$(zoxide init zsh)'" >> ~/.zshrc
+echo "eval '\$(zoxide init zsh)'" >> ~/.zshrc
 
 echo "Export bat theme..."
 echo "export BAT_THEME='ansi'" >> ~/.zshrc

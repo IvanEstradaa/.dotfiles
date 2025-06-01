@@ -9,11 +9,17 @@ fi
 # (using grep to ignore commented lines with #)
 echo "Installing Formulaes..."
 sleep 0.1
-grep -v '^\s*#' formulaes.txt | xargs brew install
+grep -v '^\s*#' formulaes.txt | while read -r formula; do
+  echo "Installing: $formula"
+  brew install $formula || echo "Failed to install: $formula"
+done
 
 echo "Installing Casks..."
 sleep 0.1
-grep -v '^\s*#' casks.txt | xargs brew install --cask
+grep -v '^\s*#' casks.txt | while read -r cask; do
+  echo "Installing cask: $cask"
+  brew install --cask "$cask" || echo "Failed to install: $cask"
+done
 
     
 source bar/progressBar.sh
