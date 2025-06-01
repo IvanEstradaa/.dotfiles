@@ -14,5 +14,6 @@ alias gb='git branch'
 alias airdrop='dropair'
 alias cbclear='rm -rf /var/folders/sp/lmlqtk6x6n552ydfjn8kmzf00000gn/T/Clipboard/0/*'
 alias spfy='spotify_player'
+alias cd="z"
 
 alias updatebin='~/.dotfiles/bin/setup.sh'

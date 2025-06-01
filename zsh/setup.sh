@@ -42,4 +42,7 @@ echo "Export bat theme..."
 echo "export BAT_THEME='ansi'" >> ~/.zshrc
 
 echo "Export editor..."
-echo "export EDITOR='code'" >> ~/.zshrc
+echo "export EDITOR='nvim'" >> ~/.zshrc
+
+
+echo "zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'" >> ~/.zshrc
