@@ -29,6 +29,19 @@ config.window_padding = {
   bottom = 0,
 }
 
+config.default_prog = {
+  "/bin/zsh",
+  "--login",
+  "-c",
+  [[
+    if command -v tmux > /dev/null 2>&1; then
+      tmux attach || tmux new;
+    else
+      exec zsh;
+    fi
+  ]],
+}
+
 -- https://wezterm.org/config/appearance.html#defining-your-own-colors
 
 -- To change color scheme, see: https://wezterm.org/colorschemes/index.html

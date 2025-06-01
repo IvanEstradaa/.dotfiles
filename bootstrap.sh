@@ -55,6 +55,16 @@ source yazi/setup.sh
 display_dynamic_progress_bar 20
 
 # Setup .zshrc configuration
+echo "Setting up tmux configuration..."
+source tmux/setup.sh
+display_dynamic_progress_bar 15
+
+# Setup .zshrc configuration
+echo "Setting up nvim configuration..."
+source nvim/setup.sh
+display_dynamic_progress_bar 25
+
+# Setup .zshrc configuration
 echo "Setting up zsh configuration..."
 source zsh/setup.sh
 display_dynamic_progress_bar 15

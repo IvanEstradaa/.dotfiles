@@ -1,3 +1,5 @@
+hs = hs
+
 require("hyperkey")
 require("scroll")
 require("border")
@@ -5,6 +7,7 @@ require("bar")
 require("windows")
 require("click")
 require("nextcloudFile")
+require("expander")
 
 hs.execute("/usr/local/bin/remap original")
 
@@ -27,6 +30,18 @@ hs.execute("/usr/local/bin/remap original")
 
 hs.ipc.cliInstall() -- Install the Hammerspoon CLI tool
 
+local vimouse = require('vimouse')
+vimouse('cmd', 'm')
+
+hs.hotkey.bind({"cmd", "alt", "ctrl"}, "T", function()
+    local win = hs.window.focusedWindow()
+    if win then
+        win:setTopLeft(hs.mouse.getAbsolutePosition())
+        win:setFrame(win:frame(), 1)
+        win:setFrame(win:frame(), 0)
+    end
+end)
+
 hs.hotkey.bind({"cmd"}, "Space", function()
   local focusedApp = hs.application.frontmostApplication()
   if focusedApp:name() == "Raycast" then
@@ -43,7 +58,7 @@ end)
 hs.hotkey.bind({}, "F19", startClick, nil, startScroll)
 
 hs.hotkey.bind({"cmd", "alt"}, "V", function()
-  hs.application.launchOrFocus("Preview") 
+  hs.application.launchOrFocus("Preview")
   hs.timer.doAfter(0.01, function()
     hs.eventtap.keyStroke({"cmd"}, "N")
   end)
@@ -57,13 +72,23 @@ end)
 local uptime_s = hs.execute("uptime | grep -o 'secs' ")
 local uptime_m = hs.execute("uptime | grep -o 'min' ")
 local uptime_m_amount = hs.execute("uptime | awk '{for (i=1; i<=NF; i++) {if ($i ~ /min/) {print $(i-1);exit;}}}'")
-if string.find(uptime_s, "secs") or (string.find(uptime_m, "min") and tonumber(uptime_m_amount) < 5) then 
+if string.find(uptime_s, "secs") or (string.find(uptime_m, "min") and tonumber(uptime_m_amount) < 3) then
+  local finder = hs.application.find("Finder")
+  if not finder then
+    return
+  end
+
   hs.application.launchOrFocus("Raycast")
+  hs.application.launchOrFocus("Nextcloud")
   hs.application.launchOrFocus("WezTerm")
 
   hs.timer.doUntil(function()
     hs.application.find("Raycast"):hide()
-    hs.application.find("Finder"):kill()
+    hs.timer.doAfter(1, function()
+      finder:kill()
+      hs.application.launchOrFocus("WezTerm")
+      windowManagement('left', 4)
+    end)
   end, function()
     hs.application.find("WezTerm")
   end,
@@ -76,9 +101,9 @@ end
 -- end)
 
 -- Disable Cmd + M
-hs.hotkey.bind({"cmd"}, "M", function()
-  -- Do nothing instead of minimizing the app
-end)
+-- hs.hotkey.bind({"cmd"}, "M", function()
+--   -- Do nothing instead of minimizing the app
+-- end)
 
 -- Press Cmd+Q twice to quit
 local quitModal = hs.hotkey.modal.new("cmd", "Q")

@@ -1,5 +1,5 @@
-alias ll='ls -l'
-alias c='${EDITOR:-vi}'
+alias ll='ls -la'
+alias vi='${EDITOR:-vi}'
 alias cat='bat'
 alias cd='z'
 alias o='open'

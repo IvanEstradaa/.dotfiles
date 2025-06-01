@@ -102,11 +102,11 @@ keyListenerScroll = hs.eventtap.new({hs.eventtap.event.types.keyDown}, function(
         local modifiers = hs.eventtap.checkKeyboardModifiers()
         canvas:hide()        
         if modifiers.shift then
-            hs.eventtap.scrollWheel({0, -20000}, {}, "line")
+            hs.eventtap.scrollWheel({0, -200000}, {}, "line")
         else
             gCount = gCount + 1
             if gCount == 2 then
-                hs.eventtap.scrollWheel({0, 20000}, {}, "line")
+                hs.eventtap.scrollWheel({0, 200000}, {}, "line")
             end
             hs.timer.doAfter(0.2, function()
                 gCount = 0

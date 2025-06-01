@@ -13,3 +13,6 @@ Icon?
 # Tmux directories
 tmux/resurrect
 tmux/plugins
+
+# Nvim file
+nvim/lua/config/mine.lua

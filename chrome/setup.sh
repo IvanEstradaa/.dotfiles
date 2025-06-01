@@ -1,3 +1,6 @@
+# Reinstall librewolf with --no-quarantine to remove the flags that indicate the app is damaged
+brew reinstall librewolf --no-quarantine
+
 ########################################
 # Set the default browser to LibreWolf #
 ########################################
@@ -59,6 +62,7 @@ if [[ -f "$PROFILE_PATH/prefs.js" ]]; then
     echo "Done!"
 else
     echo "Error: prefs.js file not found at $PROFILE_PATH/prefs.js"
+    exit 1
 fi
 
 

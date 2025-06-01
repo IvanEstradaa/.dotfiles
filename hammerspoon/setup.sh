@@ -10,3 +10,6 @@ rm -rf $HAMMERSPOON_PATH
 ln -s $PWD/hammerspoon/ $HOME/.config/
 
 open -a Hammerspoon
+
+# Add Hammerspoon to login items
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Hammerspoon.app", hidden:false}'

@@ -73,8 +73,8 @@ subLayer["W"] = {
 }
 
 subLayer["M"] = {
-    ["R"] = {reload = "Reload hammerspoon config"}, 
-    ["C"] = {code = "~/.config/hammerspoon"}, 
+    ["R"] = {reload = "Reload hammerspoon config"},
+    ["C"] = {code = "~/.config/hammerspoon"},
 }
 
 -- subLayer["E"] = {
@@ -109,7 +109,7 @@ listenForSubLayers = hs.eventtap.new({hs.eventtap.event.types.keyDown, hs.eventt
         hyperTriggered = true
     end
 
-    if activeSubLayer == "" then 
+    if activeSubLayer == "" then
         if key == "H" then
             hs.window.focusedWindow():focusWindowWest(nil, true, false)
         elseif key == "J" then
@@ -126,7 +126,7 @@ listenForSubLayers = hs.eventtap.new({hs.eventtap.event.types.keyDown, hs.eventt
     if key then -- If the key is not nil, then continue the event propagation
         return true
     end
-    
+
     event:stopPropagation()
 end)
 
@@ -138,7 +138,7 @@ listenForActions = hs.eventtap.new({hs.eventtap.event.types.keyDown, hs.eventtap
     -- if activeSubLayer == "" then listenForActions:stop() return false end
 
     if keyUps then
-        if key == hyperKey then 
+        if key == hyperKey then
             activeSubLayer = ""
             listenForActions:stop()
             listenForSubLayers:stop()
@@ -153,7 +153,7 @@ listenForActions = hs.eventtap.new({hs.eventtap.event.types.keyDown, hs.eventtap
     end
 
     if action then
-        if action.app then  
+        if action.app then
             hs.execute("open -a " .. action.app)
             mouseLazyCenter()
         elseif action.url then
@@ -178,7 +178,7 @@ listenForActions = hs.eventtap.new({hs.eventtap.event.types.keyDown, hs.eventtap
             createBar(hs.brightness.get() / 100)
         elseif action.volume then
             local new = hs.audiodevice.defaultOutputDevice():volume() + action.volume
-            if new < 0 then 
+            if new < 0 then
                 hs.audiodevice.defaultOutputDevice():setMuted(true)
             else
                 hs.audiodevice.defaultOutputDevice():setMuted(false)
@@ -195,7 +195,7 @@ listenForActions = hs.eventtap.new({hs.eventtap.event.types.keyDown, hs.eventtap
     end
 
     if key then -- If the key is not nil, then continue the event propagation
-        return true 
+        return true
     end
 
     event:stopPropagation()

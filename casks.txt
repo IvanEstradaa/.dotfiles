@@ -8,7 +8,7 @@ hammerspoon
 # handbrake
 # homerow
 # karabiner-elements
-librewolf --no-quarantine
+librewolf
 # localsend
 # makemkv
 nextcloud
