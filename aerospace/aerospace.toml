@@ -26,7 +26,7 @@ after-startup-command = [
 ]
 
 # Start AeroSpace at login
-start-at-login = false
+start-at-login = true
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = true
@@ -75,10 +75,10 @@ inner.vertical =     5
 # outer.bottom =     5
 # outer.top =        5
 # outer.right =      5
-outer.left = [{ monitor."^built-in retina display$" = 3 }, 96]
-outer.bottom = [{ monitor."^built-in retina display$" = 1 }, 54]
-outer.top = [{ monitor."^built-in retina display$" = 3 }, 54]
-outer.right = [{ monitor."^built-in retina display$" = 3 }, 96]
+outer.left = [{ monitor."^built-in retina display$" = 96 }, 96]
+outer.bottom = [{ monitor."^built-in retina display$" = 54 }, 54]
+outer.top = [{ monitor."^built-in retina display$" = 54 }, 54]
+outer.right = [{ monitor."^built-in retina display$" = 96 }, 96]
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -240,3 +240,8 @@ alt-shift-l = ['join-with right', 'mode main']
 [[on-window-detected]]
 if.app-name-regex-substring = 'Finder|Calendar|Recordatorios|Discos|Actividad|Previa|Facetime'
 run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.github.wez.wezterm'
+check-further-callbacks = true
+run = ['move-node-to-workspace S', 'workspace S']  # The callback itself

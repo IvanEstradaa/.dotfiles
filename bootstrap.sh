@@ -89,3 +89,4 @@ source macos/setup.sh
 
 # typeset -g POWERLEVEL9K_BATTERY_STAGES='\UF008E\UF007A\UF007B\UF007C\UF007D\UF007E\UF007F\UF0080\UF0081\UF0082\UF0079'
 # https://github.com/Asthestarsfalll/img2art
+# check: https://superuser.com/questions/1211108/remove-osx-spotlight-keyboard-shortcut-from-command-line
