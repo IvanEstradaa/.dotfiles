@@ -32,11 +32,14 @@ bindkey '^[[1;3D' backward-word
 bindkey '^[[1;3C' forward-word
 " >> ~/.zshrc
 
+# Add npm to PATH
+echo 'export PATH="/opt/homebrew/opt/node@22/bin:$PATH"' >> ~/.zshrc
+
 echo "Adding fzf to zsh..."
-echo "eval '\$(fzf --zsh)'" >> ~/.zshrc
+echo "eval \"\$(fzf --zsh)\"" >> ~/.zshrc
 
 echo "Adding zoxide to zsh..."
-echo "eval '\$(zoxide init zsh)'" >> ~/.zshrc
+echo "eval \"\$(zoxide init zsh)\"" >> ~/.zshrc
 
 echo "Export bat theme..."
 echo "export BAT_THEME='ansi'" >> ~/.zshrc

@@ -12,3 +12,5 @@ showExperimentalOptions=true
 ' ~/Library/Preferences/Nextcloud/nextcloud.cfg
 
 pkill -f "Nextcloud"
+
+echo "Experimental features for Nextcloud enabled"

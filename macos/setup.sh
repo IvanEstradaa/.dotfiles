@@ -590,6 +590,70 @@ defaults write com.apple.dock wvous-bl-corner -int 10
 # Rebuild the index from scratch
 # sudo mdutil -E / > /dev/null
 
+# Disable spotlight keybinding: https://superuser.com/questions/1211108/remove-osx-spotlight-keyboard-shortcut-from-command-line
+
+( 
+  #!/bin/bash
+
+  set -e
+
+  # target output for AppleSymbolicHotKeys:64
+  #
+  # <key>64</key>
+  # <dict>
+  #   <key>enabled</key>
+  #   <false/>
+  #   <key>value</key>
+  #   <dict>
+  #     <key>parameters</key>
+  #     <array>
+  #       <integer>65535</integer>
+  #       <integer>49</integer>
+  #       <integer>1048576</integer>
+  #     </array>
+  #     <key>type</key>
+  #     <string>standard</string>
+  #   </dict>
+  # </dict>
+
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.symbolichotkeys.plist \
+    -c "Delete :AppleSymbolicHotKeys:64" \
+    -c "Add :AppleSymbolicHotKeys:64:enabled bool false" \
+    -c "Add :AppleSymbolicHotKeys:64:value:parameters array" \
+    -c "Add :AppleSymbolicHotKeys:64:value:parameters: integer 65535" \
+    -c "Add :AppleSymbolicHotKeys:64:value:parameters: integer 49" \
+    -c "Add :AppleSymbolicHotKeys:64:value:parameters: integer 1048576" \
+    -c "Add :AppleSymbolicHotKeys:64:type string standard"
+
+  # target output for AppleSymbolicHotKeys:65
+  #
+  # <key>65</key>
+  # <dict>
+  #   <key>enabled</key>
+  #   <false/>
+  #   <key>value</key>
+  #   <dict>
+  #     <key>parameters</key>
+  #     <array>
+  #       <integer>65535</integer>
+  #       <integer>49</integer>
+  #       <integer>1572864</integer>
+  #     </array>
+  #     <key>type</key>
+  #     <string>standard</string>
+  #   </dict>
+  # </dict>
+
+  /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.symbolichotkeys.plist \
+    -c "Delete :AppleSymbolicHotKeys:65" \
+    -c "Add :AppleSymbolicHotKeys:65:enabled bool false" \
+    -c "Add :AppleSymbolicHotKeys:65:value:parameters array" \
+    -c "Add :AppleSymbolicHotKeys:65:value:parameters: integer 65535" \
+    -c "Add :AppleSymbolicHotKeys:65:value:parameters: integer 49" \
+    -c "Add :AppleSymbolicHotKeys:65:value:parameters: integer 1572864" \
+    -c "Add :AppleSymbolicHotKeys:65:type string standard"
+)
+
 ###############################################################################
 # Terminal & iTerm 2                                                          #
 ###############################################################################
@@ -782,7 +846,7 @@ defaults write com.apple.finder CreateDesktop false
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/logicer16/pam-watchid/HEAD/install.sh)" -- enable
 
 # Let touch Id or Apple Watch to run sudo commands even if inside tmux. See: https://github.com/fabianishere/pam_reattach
-sed -i '' '2i\
+sudo sed -i '' '2i\
 auth optional /opt/homebrew/lib/pam/pam_reattach.so
 ' /private/etc/pam.d/sudo_local
 

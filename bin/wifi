@@ -8,13 +8,9 @@ SYSTEM_PROFILE_OUTPUT=$(system_profiler SPAirPortDataType)
 # Extract the interface name
 INTERFACE=$(echo "$SYSTEM_PROFILE_OUTPUT" | grep -m 1 "Interfaces:" -A 1 | tail -n 1 | sed 's/^[[:space:]]*//' | sed 's/:$//')
 
-if [ "$1" == "on" ]; then
-    networksetup -setairportpower "$INTERFACE" on
-    echo "Wi-Fi turned on."
-    exit 0
-elif [ "$1" == "off" ]; then
-    networksetup -setairportpower "$INTERFACE" off
-    echo "Wi-Fi turned off."
+if [ "$1" == "on" ] || [ "$1" == "off" ]; then
+    networksetup -setairportpower "$INTERFACE" "$1"
+    echo "Wi-Fi turned "$1"."
     exit 0
 fi
 
@@ -35,7 +31,7 @@ if [ "$1" == "current" ]; then
 fi
 
 # Extract the list of other local Wi-Fi networks
-NETWORKS=$(echo "$SYSTEM_PROFILE_OUTPUT" | awk '/Other Local Wi-Fi Networks:/, /awdl0:/' | sed '1d;$d' | sed -n 's/^[[:space:]]*\([^:]*\):/\1/p' | sed 's/^[[:space:]]*//' | awk 'NR % 6 == 1' | grep -v "$CURRENT_NETWORK" | awk '!seen[$0]++')
+NETWORKS=$(echo "$SYSTEM_PROFILE_OUTPUT" | awk '/Other Local Wi-Fi Networks:/, /awdl0:/' | sed '1d;$d' | sed -n 's/^[[:space:]]*\([^:]*\):/\1/p' | sed 's/^[[:space:]]*//' | awk 'NR % 6 == 1' | grep -v "$CURRENT_NETWORK" ) # | awk '!seen[$0]++'
 
 # Extract lines between "Other Local Wi-Fi Networks:" and "awdl0:" 
 # Remove the first and last lines
