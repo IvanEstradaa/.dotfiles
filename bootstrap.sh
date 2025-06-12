@@ -1,26 +1,30 @@
 # Install Homebrew if not already installed
 if ! command -v brew &>/dev/null; then
-    echo "Installing Homebrew..."
-    sleep 0.1
-    source brew/install.sh
+  echo "Installing Homebrew..."
+  sleep 0.1
+  source brew/install.sh
+else
+  echo "Homebrew already installed."
 fi
 
 # Install diferrent Formulaes and Casks using xargs with Homebrew's install command
 # (using grep to ignore commented lines with #)
 echo "Installing Formulaes..."
 sleep 0.1
-grep -v '^\s*#' formulaes.txt | while read -r formula; do
+while read -r formula; do
+  [[ -z "$formula" || "$formula" =~ ^\s*# ]] && continue
   echo "Installing: $formula"
   brew install $formula || echo "Failed to install: $formula"
-done
+done < formulaes.txt
 
 echo "Installing Casks..."
 sleep 0.1
-grep -v '^\s*#' casks.txt | while read -r cask; do
-  echo "Installing cask: $cask"
-  brew install --cask "$cask" || echo "Failed to install: $cask"
-done
-
+while read -r cask; do
+  [[ -z "$cask" || "$cask" =~ ^\s*# ]] && continue
+  echo "Installing: $cask"
+  brew install $cask || echo "Failed to install: $cask"
+done < casks.txt
+# brew bundle install --file=$HOME/.dotfiles/Brewfile
     
 source bar/progressBar.sh
 
@@ -89,4 +93,3 @@ source macos/setup.sh
 
 # typeset -g POWERLEVEL9K_BATTERY_STAGES='\UF008E\UF007A\UF007B\UF007C\UF007D\UF007E\UF007F\UF0080\UF0081\UF0082\UF0079'
 # https://github.com/Asthestarsfalll/img2art
-# check: https://superuser.com/questions/1211108/remove-osx-spotlight-keyboard-shortcut-from-command-line
