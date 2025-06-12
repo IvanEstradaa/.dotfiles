@@ -6,7 +6,7 @@ sleep 1
 ########################################
 # Set the default browser to LibreWolf #
 ########################################
-open -a "LibreWolf" --new --args -silent -nosplash -setDefaultBrowser
+open -a "LibreWolf" --new --args -setDefaultBrowser
 # Chromium-based browsers: open -a "Google Chrome" --new --args --make-default-browser
 
 sleep 3 # wait for the popup to be shown

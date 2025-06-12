@@ -1,0 +1,10 @@
+# $HOME/.local/share/posting/themes
+name: Black_Metal # use this name in your config file
+primary:   '#5f8787'  # buttons, fixed table columns (icy blue-gray)
+secondary: '#888888'  # method selector, minor labels (neutral mid-gray)
+accent:    '#c1c1c1'  # header text, scrollbars, cursors, focus highlights (light gray for contrast)
+background: '#000000'  # main background (true black)
+surface:   '#111111'  # panels, etc. (slightly lifted black for minimal contrast)
+error:     '#777777'  # error messages (subtle, non-jarring gray – avoids bright red)
+success:   '#7799bb'  # success messages (cool bluish tone from theme)
+warning:   '#999999'  # warning messages (lighter gray to suggest caution without harshness)

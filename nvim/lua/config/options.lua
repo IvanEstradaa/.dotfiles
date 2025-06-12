@@ -37,3 +37,8 @@ opt.splitbelow = true -- split horizontal window to the bottom
 
 -- scrolloff
 opt.scrolloff = 9
+
+-- use only ONE status line for all buffers
+opt.laststatus = 3
+-- in case your separators for each buffer look strange:
+-- highlight Winseparator guibg = None

@@ -18,6 +18,7 @@ after-login-command = []
 # Borders docs: https://github.com/FelixKratz/JankyBorders/wiki/Man-Page
 # Color format: https://www.myfixguide.com/color-converter/ 
 after-startup-command = [ 
+    'layout v_accordion'
     # 'exec-and-forget borders active_color="gradient(top_left=0xff536b93,bottom_right=0xffff7e1e) gradient(top_right=0xffff9b0a,bottom_left=0xff91d2ff)" inactive_color=0xff494d64 width=5.0'
     # 'exec-and-forget borders active_color="glow(0xffff374a)" inactive_color=0xff494d64 width=3.0' # Light Red Glow for car wallpaper 
     # 'exec-and-forget borders active_color="glow(0xffc31222)" inactive_color=0xff494d64 width=3.0' # Red Glow for car wallpaper
@@ -35,7 +36,7 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 # See: https://nikitabobko.github.io/AeroSpace/guide#layouts
 # The 'accordion-padding' specifies the size of accordion padding
 # You can set 0 to disable the padding feature
-accordion-padding = 10 #10
+accordion-padding = 0 #10
 
 # Possible values: tiles|accordion
 default-root-container-layout = 'accordion'
@@ -75,10 +76,10 @@ inner.vertical =     5
 # outer.bottom =     5
 # outer.top =        5
 # outer.right =      5
-outer.left = [{ monitor."^built-in retina display$" = 96 }, 96]
-outer.bottom = [{ monitor."^built-in retina display$" = 54 }, 54]
-outer.top = [{ monitor."^built-in retina display$" = 54 }, 54]
-outer.right = [{ monitor."^built-in retina display$" = 96 }, 96]
+outer.left = [{ monitor."^built-in retina display$" = 144 }, 96]
+outer.bottom = [{ monitor."^built-in retina display$" = 93 }, 54]
+outer.top = [{ monitor."^built-in retina display$" = 93 }, 54]
+outer.right = [{ monitor."^built-in retina display$" = 144 }, 96]
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -141,8 +142,8 @@ shift-ctrl-l = 'join-with right'
 # alt-9 = 'workspace 9'
 alt-a = 'workspace A'
 # alt-b = 'workspace B'
-alt-c = 'workspace C'
-alt-d = 'workspace D'
+# alt-c = 'workspace C'
+# alt-d = 'workspace D'
 # alt-e = 'workspace E'
 # alt-f = 'workspace F'
 # alt-g = 'workspace G'
@@ -174,8 +175,8 @@ alt-z = 'workspace Z'
 # alt-shift-9 = 'move-node-to-workspace 9'
 alt-shift-a = 'move-node-to-workspace A'
 # alt-shift-b = 'move-node-to-workspace B'
-alt-shift-c = 'move-node-to-workspace C'
-alt-shift-d = 'move-node-to-workspace D'
+# alt-shift-c = 'move-node-to-workspace C'
+# alt-shift-d = 'move-node-to-workspace D'
 # alt-shift-e = 'move-node-to-workspace E'
 # alt-shift-f = 'move-node-to-workspace F'
 # alt-shift-g = 'move-node-to-workspace G'
@@ -238,10 +239,13 @@ alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'Finder|Calendar|Recordatorios|Discos|Actividad|Previa|Facetime'
+if.app-name-regex-substring = 'Finder|Calendar|Reminders|Dis|Activi|Previ|Facetime|SecurityAgent|settings|Nextcloud|Shortcuts|OpenVPN|LocalAuthentication|Notification'
 run = 'layout floating'
 
 [[on-window-detected]]
-if.app-id = 'com.github.wez.wezterm'
+if.app-name-regex-substring = 'WezTerm'
+run = ['layout tiling', 'move-node-to-workspace S']  # The callback itself
+
+[[on-window-detected]]
 check-further-callbacks = true
-run = ['move-node-to-workspace S', 'workspace S']  # The callback itself
+run = ['layout tiling', 'move-node-to-workspace A']  # The callback itself

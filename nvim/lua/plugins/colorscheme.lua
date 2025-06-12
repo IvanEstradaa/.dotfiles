@@ -12,7 +12,7 @@ return {
       -- If true, enable the vim terminal colors
       term_colors = true,
       -- Don't set background
-      transparent = false,
+      transparent = true,
    })
     require("black-metal").load()
   end,
